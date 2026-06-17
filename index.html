@@ -18,26 +18,64 @@
       font-family: "Playfair Display", "Noto Serif TC", serif !important;
     }
     
-    /* ======== PDF 列印優化 (Print CSS) ======== */
+    /* ======== 終極 PDF 列印優化 (Print CSS) ======== */
     @media print {
-      html, body {
+      /* 1. 強制保留所有顏色與深色背景 */
+      * {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
-        background-color: #09090b !important;
+        color-adjust: exact !important;
       }
-      nav { position: absolute !important; }
-      .group, li, .grid > div, ul, section {
+      body, html {
+        background-color: #09090b !important;
+        color: #e4e4e7 !important;
+      }
+      
+      /* 2. 簡報模式：讓每一個區塊自動成為獨立的一頁！ */
+      section {
+        page-break-after: always !important;
+        break-after: page !important;
+        padding: 2rem !important; /* 縮小留白，讓 A4 裝得下 */
+        min-height: 0 !important;
+        height: auto !important;
+      }
+      
+      /* 3. 防止卡片、清單、圖片從中間被切成兩半 */
+      .group, li, .grid > div, ul, p, h1, h2, h3, h4, img {
         page-break-inside: avoid !important;
         break-inside: avoid !important;
       }
+
+      /* 4. 強制保留電腦版排版（覆蓋手機版設定） */
+      .grid { display: grid !important; }
       .lg\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+      .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
       .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
       .md\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
       .lg\:grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)) !important; }
       .lg\:col-span-5 { grid-column: span 5 / span 5 !important; }
       .lg\:col-span-7 { grid-column: span 7 / span 7 !important; }
-      .min-h-screen { min-height: 100vh !important; }
-      .lg\:h-screen { height: 100vh !important; }
+      .lg\:flex-1 { flex: 1 1 0% !important; }
+      .lg\:border-b-0 { border-bottom-width: 0 !important; }
+      .lg\:border-r { border-right-width: 1px !important; }
+
+      /* 5. 修正列印時過大的間距與高度 */
+      .py-24 { padding-top: 2rem !important; padding-bottom: 2rem !important; }
+      .mt-24 { margin-top: 2rem !important; }
+      .mb-24 { margin-bottom: 2rem !important; }
+      .gap-16 { gap: 2rem !important; }
+      .h-\[55vh\] { height: 400px !important; } /* 固定封面相片高度 */
+      
+      /* 6. 隱藏不必要的元素 (導覽列) 避免擋住文字 */
+      nav { display: none !important; }
+      
+      /* 7. 強制文字顏色避免反黑 */
+      .text-white { color: #ffffff !important; }
+      .text-zinc-400 { color: #a1a1aa !important; }
+      .text-zinc-500 { color: #71717a !important; }
+      .bg-zinc-950 { background-color: #09090b !important; }
+      .bg-zinc-900 { background-color: #18181b !important; }
+      .bg-zinc-800 { background-color: #27272a !important; }
     }
   </style>
 
@@ -46,63 +84,53 @@
     // 🌟 你的專屬照片設定區 (請在這裡貼上你的網址)
     // ==========================================
     const MY_PHOTOS = {
-      // --- 首頁照片 ---
-      heroBackground: "hero.jpg", // 左側：背景大圖特寫
-      heroGrid1: "hero2.jpg",      // 右側網格 1 (左上)
-      heroGrid2: "hero3.jpg",      // 右側網格 2 (右上)
-      heroGrid3: "hero4.jpg",      // 右側網格 3 (左下)
-      
-      // --- 國際巡演照片 (搭配 4 個項目) ---
-      tour1: "tour.jpg", // IMAGINE NATION 幻
-      tour2: "tour2.jpg", // 秀都魔幻
-      tour3: "tour3.jpg", // 魔法奇幻之旅
-      tour4: "tour4.jpg", // 藝術外賣 3.0
-
-      // --- 服務項目照片 ---
-      service1: "service.jpg", // 近景及 VIP 魔術
-      service2: "service2.jpg", // 互動舞台幻術演出
-      service3: "service3.jpg", // 品牌訂製幻術體驗
-      service4: "service4.jpg", // 全程製作顧問
+      heroBackground: "hero.jpg",
+      heroGrid1: "hero2.jpg",
+      heroGrid2: "hero3.jpg",
+      heroGrid3: "hero4.jpg",
+      tour1: "tour.jpg",
+      tour2: "tour2.jpg",
+      tour3: "tour3.jpg",
+      tour4: "tour4.jpg",
+      service1: "service.jpg",
+      service2: "service2.jpg",
+      service3: "service3.jpg",
+      service4: "service4.jpg",
     };
 
-    // 網頁載入完成後，自動將照片套用到畫面上
     document.addEventListener("DOMContentLoaded", () => {
       Object.entries(MY_PHOTOS).forEach(([id, url]) => {
         const img = document.getElementById(id);
         if (img) {
           if (url && url.trim() !== "") {
             img.src = url;
-            img.classList.remove('hidden'); // 有網址就顯示照片
+            img.classList.remove('hidden');
+            img.parentElement.style.display = 'block'; // 修復網格黑塊
           } else {
-            img.classList.add('hidden'); // 沒網址就隱藏，保留黑色高級背景
+            img.classList.add('hidden');
+            // 如果是右側網格照片沒有網址，直接隱藏外層，讓剩下的照片自動變大
+            if (id.startsWith('heroGrid')) {
+              img.parentElement.style.display = 'none';
+            }
           }
         }
       });
-      // 啟用圖示
       lucide.createIcons();
     });
   </script>
 </head>
 <body class="min-h-screen bg-zinc-950 text-zinc-300 font-sans selection:bg-zinc-700 selection:text-white">
 
-  <!-- HEADER / NAV -->
-  <nav class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-6 py-4 mix-blend-difference text-white pointer-events-none">
+  <nav class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-6 py-4 bg-zinc-950/80 backdrop-blur-md text-white">
     <div class="text-sm tracking-widest font-bold uppercase">Billy Kong</div>
     <div class="text-xs tracking-widest uppercase opacity-70">Artist Profile · Confidential</div>
   </nav>
 
-  <!-- PAGE 1: HERO (SPLIT SCREEN PRESENTATION) -->
-  <section class="grid grid-cols-1 lg:grid-cols-2 min-h-screen">
-    
-    <!-- 重新設計：將照片與文字上下分離，完全去除遮罩，確保不擋住人像 -->
+  <section class="grid grid-cols-1 lg:grid-cols-2 min-h-screen pt-[60px] lg:pt-0">
     <div class="flex flex-col lg:h-screen border-b lg:border-b-0 lg:border-r border-zinc-900 bg-zinc-950">
-      <!-- 滿版人像區（移除 opacity-40 和暗黑漸層遮罩，全亮顯示） -->
       <div class="h-[55vh] lg:flex-1 w-full relative bg-zinc-900">
-        <!-- 加上 object-top 確保頭部不被切掉 -->
         <img id="heroBackground" alt="Magician portrait" class="hidden object-cover object-top w-full h-full" />
       </div>
-      
-      <!-- 標題文字區（移到圖片下方，獨立區塊，不再覆蓋在臉上） -->
       <div class="w-full p-8 lg:p-12 xl:p-16 relative z-10 shrink-0">
         <h1 class="text-5xl lg:text-7xl font-serif text-white mb-2 leading-tight">Billy Kong</h1>
         <h2 class="text-3xl lg:text-4xl font-serif text-zinc-400 mb-6">江尚峰</h2>
@@ -119,7 +147,7 @@
       </div>
     </div>
 
-    <div class="min-h-[40vh] lg:h-[calc(100vh-60px)] bg-zinc-900 flex flex-wrap gap-1 lg:gap-2 p-1 lg:p-2">
+    <div class="min-h-[40vh] lg:h-[calc(100vh)] bg-zinc-900 flex flex-wrap gap-1 lg:gap-2 p-1 lg:p-2 lg:pt-[60px]">
       <div class="relative overflow-hidden group bg-zinc-800 flex-1 min-w-[40%] min-h-[45%]">
         <img id="heroGrid1" alt="Portfolio 1" class="hidden object-cover w-full h-full opacity-60 group-hover:opacity-100 transition-opacity duration-700 grayscale group-hover:grayscale-0" />
       </div>
@@ -138,7 +166,6 @@
     </div>
   </section>
 
-  <!-- PAGE 2: PROFILE & STATS -->
   <section class="py-24 px-6 lg:px-16 max-w-7xl mx-auto">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
       <div class="lg:col-span-5">
@@ -220,7 +247,6 @@
     </div>
   </section>
 
-  <!-- PAGE 3: EXPERIENCE WITH PHOTOS -->
   <section class="py-24 bg-zinc-950 border-t border-zinc-900 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-6 lg:px-16 relative z-10">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
@@ -323,7 +349,6 @@
     </div>
   </section>
 
-  <!-- PAGE 4: GOOGLE REVIEWS & BRANDS -->
   <section class="py-24 border-t border-zinc-900">
     
     <!-- Google Reviews Section -->
@@ -405,7 +430,7 @@
           </li>
           <li class="flex flex-col">
             <span class="text-xl font-serif text-white">Grand Lisboa Palace 上葡京</span>
-            <span class="text-sm text-zinc-500 font-serif">Streetmosphere & Buffet · 廣場表演及自助餐廳</span>
+            <span class="text-sm text-zinc-500 font-serif">廣場表演及自助餐廳</span>
           </li>
           <li class="flex flex-col">
             <span class="text-xl font-serif text-white">Studio City 新濠影匯</span>
@@ -416,7 +441,6 @@
     </div>
   </section>
 
-  <!-- PAGE 5: SERVICES (PHOTO CARDS) -->
   <section class="py-24 bg-zinc-950 border-t border-zinc-900">
     <div class="max-w-7xl mx-auto px-6 lg:px-16">
       <h2 class="text-xs tracking-[0.3em] text-zinc-500 uppercase mb-4 text-center font-serif">What We Can Create Together</h2>
@@ -481,7 +505,6 @@
     </div>
   </section>
 
-  <!-- PAGE 6: CONTACT & FOOTER -->
   <footer class="py-24 bg-zinc-950 border-t border-zinc-900 text-center">
     <div class="max-w-3xl mx-auto px-6">
       <h2 class="text-4xl font-serif text-white mb-2">Billy Kong</h2>

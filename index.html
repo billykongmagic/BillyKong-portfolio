@@ -41,6 +41,83 @@
     .font-serif {
       font-family: "Playfair Display", "Noto Serif TC", serif !important;
     }
+
+    /* 🌟 Luxury Gold Accent */
+    :root {
+      --gold: #d4af6a;
+      --gold-dark: #1a1408;
+    }
+    .text-gold { color: var(--gold) !important; }
+    .border-gold { border-color: var(--gold) !important; }
+    .bg-gold { background-color: var(--gold) !important; }
+    .text-gold-dark { color: var(--gold-dark) !important; }
+
+    /* 🌟 Blueprint Atmosphere Layer (借鑒 Authkit 氛圍元素，金色調整版) */
+
+    /* 背景藍圖網格 — 極淡，只增加質感不搶視覺 */
+    .blueprint-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(212, 175, 106, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(212, 175, 106, 0.045) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    /* Conic glow 邊框 — 取代原本生硬的 border，呼應金色光源從上方灑落 */
+    .conic-glow-frame {
+      position: relative;
+    }
+    .conic-glow-frame::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: conic-gradient(from 90deg at 50% -5%,
+        transparent 0%,
+        rgba(212, 175, 106, 0.45) 25%,
+        rgba(212, 175, 106, 0.6) 50%,
+        rgba(212, 175, 106, 0.45) 75%,
+        transparent 100%);
+      pointer-events: none;
+    }
+
+    /* 柔和金色光暈 — 取代純色 border-hover，做出 Authkit 的 glow 層次感 */
+    .glow-hover {
+      transition: box-shadow 0.4s ease, border-color 0.4s ease;
+      box-shadow: inset 0 0 0 1px rgba(212, 175, 106, 0.08);
+    }
+    .glow-hover:hover {
+      box-shadow:
+        inset 0 0 0 1px rgba(212, 175, 106, 0.35),
+        0 0 24px 0 rgba(212, 175, 106, 0.12);
+      border-color: rgba(212, 175, 106, 0.4) !important;
+    }
+
+    /* CTA 按鈕金色光暈 */
+    .gold-cta-glow {
+      box-shadow: 0 0 0 1px rgba(212, 175, 106, 0.5), 0 0 32px 0 rgba(212, 175, 106, 0.25);
+      transition: box-shadow 0.4s ease, transform 0.2s ease;
+    }
+    .gold-cta-glow:hover {
+      box-shadow: 0 0 0 1px rgba(212, 175, 106, 0.7), 0 0 48px 0 rgba(212, 175, 106, 0.4);
+      transform: translateY(-1px);
+    }
+
+    /* 頂部中心放射光 — 用於 Hero 區，極微弱的金色 ambient glow */
+    .ambient-glow-top {
+      position: absolute;
+      top: -10%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 40%;
+      background: radial-gradient(ellipse at center, rgba(212, 175, 106, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
     
     /* ======== 終極 PDF 列印優化 (Print CSS) ======== */
     @media print {
@@ -120,6 +197,10 @@
       service2: "service2.jpg",
       service3: "service3.jpg",
       service4: "service4.jpg",
+      brand1: "brand1.jpg",
+      brand2: "brand2.jpg",
+      brand3: "brand3.jpg",
+      brand4: "brand4.jpg",
     };
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -150,7 +231,9 @@
     <div class="text-xs tracking-widest uppercase opacity-70">Artist Profile · Confidential</div>
   </nav>
 
-  <section class="grid grid-cols-1 lg:grid-cols-2 min-h-screen pt-[60px] lg:pt-0">
+  <section class="grid grid-cols-1 lg:grid-cols-2 min-h-screen pt-[60px] lg:pt-0 relative conic-glow-frame overflow-hidden">
+    <div class="blueprint-grid"></div>
+    <div class="ambient-glow-top"></div>
     <div class="flex flex-col lg:h-screen border-b lg:border-b-0 lg:border-r border-zinc-900 bg-zinc-950">
       <div class="h-[55vh] lg:flex-1 w-full relative bg-zinc-900">
         <img id="heroBackground" alt="Billy Kong 江尚峰 澳門國際幻術師 舞台肖像" class="hidden object-cover object-top w-full h-full" />
@@ -158,7 +241,7 @@
       <div class="w-full p-8 lg:p-12 xl:p-16 relative z-10 shrink-0">
         <h1 class="text-5xl lg:text-7xl font-serif text-white mb-2 leading-tight">Billy Kong</h1>
         <h2 class="text-3xl lg:text-4xl font-serif text-zinc-400 mb-6">江尚峰</h2>
-        <div class="h-px w-12 bg-zinc-600 mb-6"></div>
+        <div class="h-px w-12 bg-gold mb-6"></div>
         <h3 class="text-sm lg:text-base tracking-[0.2em] uppercase text-zinc-300 mb-2">
           International Tour Star Illusionist
         </h3>
@@ -212,19 +295,19 @@
       <div class="lg:col-span-7">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16 border-b border-zinc-900 pb-16">
           <div>
-            <div class="text-4xl font-serif text-white mb-2">3,000+</div>
+            <div class="text-4xl font-serif text-gold mb-2">3,000+</div>
             <div class="text-xs text-zinc-500 uppercase tracking-wider font-serif">累積演出場次<br/>Total performances</div>
           </div>
           <div>
-            <div class="text-4xl font-serif text-white mb-2">240+</div>
+            <div class="text-4xl font-serif text-gold mb-2">240+</div>
             <div class="text-xs text-zinc-500 uppercase tracking-wider font-serif">國際巡演場次<br/>Int'l tour shows</div>
           </div>
           <div>
-            <div class="text-4xl font-serif text-white mb-2">20+</div>
+            <div class="text-4xl font-serif text-gold mb-2">20+</div>
             <div class="text-xs text-zinc-500 uppercase tracking-wider font-serif">年專業資歷<br/>Years experience</div>
           </div>
           <div>
-            <div class="text-4xl font-serif text-white mb-2">5★</div>
+            <div class="text-4xl font-serif text-gold mb-2">5★</div>
             <div class="text-xs text-zinc-500 uppercase tracking-wider font-serif">五星級酒店駐場<br/>Hotel residencies</div>
           </div>
         </div>
@@ -232,12 +315,12 @@
         <div>
           <h4 class="text-xs tracking-widest text-zinc-500 uppercase mb-6 font-serif">Credentials 專業資格徽章</h4>
           <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <li class="flex items-center gap-3 text-sm text-zinc-300 font-serif"><i data-lucide="check-circle" class="w-4 h-4 text-zinc-600"></i> FISM Member · 國際魔術聯盟</li>
-            <li class="flex items-center gap-3 text-sm text-zinc-300 font-serif"><i data-lucide="check-circle" class="w-4 h-4 text-zinc-600"></i> Franz Harary Asia Team · 亞洲核心成員</li>
-            <li class="flex items-center gap-3 text-sm text-zinc-300 font-serif"><i data-lucide="check-circle" class="w-4 h-4 text-zinc-600"></i> Fukai Magic School, Japan</li>
-            <li class="flex items-center gap-3 text-sm text-zinc-300 font-serif"><i data-lucide="check-circle" class="w-4 h-4 text-zinc-600"></i> 澳門魔術之都協會 常任理事</li>
-            <li class="flex items-center gap-3 text-sm text-zinc-300 font-serif"><i data-lucide="award" class="w-4 h-4 text-zinc-400"></i> Macau Int'l Magic Festival · 近距離組亞軍</li>
-            <li class="flex items-center gap-3 text-sm text-white font-medium font-serif"><i data-lucide="award" class="w-4 h-4 text-yellow-600"></i> 十月初五街節民間高手比賽 2025 冠軍</li>
+            <li class="flex items-center gap-3 text-sm text-zinc-300 font-serif"><i data-lucide="check-circle" class="w-4 h-4 text-gold"></i> FISM Member · 國際魔術聯盟</li>
+            <li class="flex items-center gap-3 text-sm text-zinc-300 font-serif"><i data-lucide="check-circle" class="w-4 h-4 text-gold"></i> Franz Harary Asia Team · 亞洲核心成員</li>
+            <li class="flex items-center gap-3 text-sm text-zinc-300 font-serif"><i data-lucide="check-circle" class="w-4 h-4 text-gold"></i> Fukai Magic School, Japan</li>
+            <li class="flex items-center gap-3 text-sm text-zinc-300 font-serif"><i data-lucide="check-circle" class="w-4 h-4 text-gold"></i> 澳門魔術之都協會 常任理事</li>
+            <li class="flex items-center gap-3 text-sm text-zinc-300 font-serif"><i data-lucide="award" class="w-4 h-4 text-gold"></i> Macau Int'l Magic Festival · 近距離組亞軍</li>
+            <li class="flex items-center gap-3 text-sm text-white font-medium font-serif"><i data-lucide="award" class="w-4 h-4 text-gold"></i> 十月初五街節民間高手比賽 2025 冠軍</li>
           </ul>
         </div>
       </div>
@@ -246,7 +329,7 @@
     <div class="mt-24">
       <h2 class="text-center text-xs tracking-[0.3em] text-zinc-500 uppercase mb-12 font-serif">Core Strengths 三大核心優勢</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="bg-zinc-900/30 p-8 border border-zinc-800/50 hover:border-zinc-700 transition-colors">
+        <div class="bg-zinc-900/30 p-8 border border-zinc-800/50 glow-hover relative">
           <div class="text-2xl font-serif text-zinc-600 mb-4">01</div>
           <h4 class="text-lg text-white mb-1 font-serif">International Illusion Production<br/><span class="text-sm text-zinc-400">國際級幻術製作經驗</span></h4>
           <p class="text-xs text-zinc-600 uppercase tracking-wider mb-4 font-serif">稀缺資歷，等級不同的製作水準</p>
@@ -255,7 +338,7 @@
             澳門少數同時參與 Franz Harary 國際巡演團隊、韓國 JSM Studio 及大型劇場幻術製作的藝術家。
           </p>
         </div>
-        <div class="bg-zinc-900/30 p-8 border border-zinc-800/50 hover:border-zinc-700 transition-colors">
+        <div class="bg-zinc-900/30 p-8 border border-zinc-800/50 glow-hover relative">
           <div class="text-2xl font-serif text-zinc-600 mb-4">02</div>
           <h4 class="text-lg text-white mb-1 font-serif">Close-up & Stage, Both Mastered<br/><span class="text-sm text-zinc-400">近景與舞台雙棲魔術師</span></h4>
           <p class="text-xs text-zinc-600 uppercase tracking-wider mb-4 font-serif">一人包辦，從晚宴到萬人舞台</p>
@@ -264,7 +347,7 @@
             從觀眾眼前數厘米的近距離魔術，到萬人級舞台幻術，均具備豐富實戰經驗。
           </p>
         </div>
-        <div class="bg-zinc-900/30 p-8 border border-zinc-800/50 hover:border-zinc-700 transition-colors">
+        <div class="bg-zinc-900/30 p-8 border border-zinc-800/50 glow-hover relative">
           <div class="text-2xl font-serif text-zinc-600 mb-4">03</div>
           <h4 class="text-lg text-white mb-1 font-serif">Immersive Audience Experience<br/><span class="text-sm text-zinc-400">沉浸式互動體驗設計</span></h4>
           <p class="text-xs text-zinc-600 uppercase tracking-wider mb-4 font-serif">讓每位客人都是主角，記憶無法複製</p>
@@ -387,8 +470,8 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         
         <!-- Review 1 -->
-        <div class="bg-zinc-900/50 border border-zinc-800 p-8 relative overflow-hidden group hover:border-zinc-700 transition-colors">
-          <div class="flex gap-1 mb-4 text-yellow-600">
+        <div class="bg-zinc-900/50 border border-zinc-800 p-8 relative overflow-hidden group glow-hover">
+          <div class="flex gap-1 mb-4 text-gold">
             <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
           </div>
           <p class="text-white font-serif italic leading-relaxed mb-6">"Absolutely mesmerizing experience. His attention to detail is world-class."</p>
@@ -399,8 +482,8 @@
         </div>
 
         <!-- Review 2 -->
-        <div class="bg-zinc-900/50 border border-zinc-800 p-8 relative overflow-hidden group hover:border-zinc-700 transition-colors">
-          <div class="flex gap-1 mb-4 text-yellow-600">
+        <div class="bg-zinc-900/50 border border-zinc-800 p-8 relative overflow-hidden group glow-hover">
+          <div class="flex gap-1 mb-4 text-gold">
              <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
           </div>
           <p class="text-white font-serif italic leading-relaxed mb-6">"A mind-blowing performance! Billy engaged the entire audience perfectly. Highly recommended."</p>
@@ -411,8 +494,8 @@
         </div>
 
         <!-- Review 3 -->
-        <div class="bg-zinc-900/50 border border-zinc-800 p-8 relative overflow-hidden group hover:border-zinc-700 transition-colors">
-          <div class="flex gap-1 mb-4 text-yellow-600">
+        <div class="bg-zinc-900/50 border border-zinc-800 p-8 relative overflow-hidden group glow-hover">
+          <div class="flex gap-1 mb-4 text-gold">
              <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
           </div>
           <p class="text-white font-serif italic leading-relaxed mb-6">"A truly unforgettable evening. The best illusionist we have ever seen in Macau."</p>
@@ -428,22 +511,42 @@
     <div class="max-w-7xl mx-auto px-6 lg:px-16 grid grid-cols-1 lg:grid-cols-2 gap-16">
       <div>
         <h3 class="text-xs tracking-[0.3em] text-zinc-500 uppercase mb-8 border-b border-zinc-900 pb-4 font-serif">Selected Brand Partnerships 精選品牌合作</h3>
-        <ul class="space-y-6">
-          <li class="flex flex-col">
-            <span class="text-xl font-serif text-white">Hermès</span>
-            <span class="text-sm text-zinc-500 font-serif">VIP Client Experience</span>
+        <ul class="space-y-4">
+          <li class="flex items-center gap-5 bg-zinc-900/30 border border-zinc-800/50 glow-hover p-3">
+            <div class="w-20 h-20 bg-zinc-800 flex-shrink-0 overflow-hidden">
+              <img id="brand1" alt="Billy Kong Hermès VIP 客戶體驗魔術表演" class="hidden w-full h-full object-cover grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-500" />
+            </div>
+            <div class="flex flex-col">
+              <span class="text-xl font-serif text-white">Hermès</span>
+              <span class="text-sm text-zinc-500 font-serif">VIP Client Experience</span>
+            </div>
           </li>
-          <li class="flex flex-col">
-            <span class="text-xl font-serif text-white">Macau International Airport</span>
-            <span class="text-sm text-zinc-500 font-serif">國際航線推廣主題魔術表演</span>
+          <li class="flex items-center gap-5 bg-zinc-900/30 border border-zinc-800/50 glow-hover p-3">
+            <div class="w-20 h-20 bg-zinc-800 flex-shrink-0 overflow-hidden">
+              <img id="brand2" alt="Billy Kong 澳門國際機場 國際航線推廣魔術表演" class="hidden w-full h-full object-cover grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-500" />
+            </div>
+            <div class="flex flex-col">
+              <span class="text-xl font-serif text-white">Macau International Airport</span>
+              <span class="text-sm text-zinc-500 font-serif">國際航線推廣主題魔術表演</span>
+            </div>
           </li>
-          <li class="flex flex-col">
-            <span class="text-xl font-serif text-white">澳門國際環保合作發展論壇 2026</span>
-            <span class="text-sm text-zinc-500 font-serif">環保主題魔術表演</span>
+          <li class="flex items-center gap-5 bg-zinc-900/30 border border-zinc-800/50 glow-hover p-3">
+            <div class="w-20 h-20 bg-zinc-800 flex-shrink-0 overflow-hidden">
+              <img id="brand3" alt="Billy Kong 澳門國際環保合作發展論壇 2026 環保主題魔術表演" class="hidden w-full h-full object-cover grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-500" />
+            </div>
+            <div class="flex flex-col">
+              <span class="text-xl font-serif text-white">澳門國際環保合作發展論壇 2026</span>
+              <span class="text-sm text-zinc-500 font-serif">環保主題魔術表演</span>
+            </div>
           </li>
-          <li class="flex flex-col">
-            <span class="text-xl font-serif text-white">澳門田耕閣手信</span>
-            <span class="text-sm text-zinc-500 font-serif">幸運神朱古力新品發布</span>
+          <li class="flex items-center gap-5 bg-zinc-900/30 border border-zinc-800/50 glow-hover p-3">
+            <div class="w-20 h-20 bg-zinc-800 flex-shrink-0 overflow-hidden">
+              <img id="brand4" alt="Billy Kong 澳門田耕閣手信 幸運神朱古力新品發布魔術表演" class="hidden w-full h-full object-cover grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-500" />
+            </div>
+            <div class="flex flex-col">
+              <span class="text-xl font-serif text-white">澳門田耕閣手信</span>
+              <span class="text-sm text-zinc-500 font-serif">幸運神朱古力新品發布</span>
+            </div>
           </li>
         </ul>
       </div>
@@ -478,7 +581,7 @@
       
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         
-        <div class="group relative bg-zinc-900 overflow-hidden border border-zinc-800 hover:border-zinc-600 transition-colors">
+        <div class="group relative bg-zinc-900 overflow-hidden border border-zinc-800 glow-hover">
           <div class="h-48 lg:h-64 bg-zinc-800 overflow-hidden">
             <img id="service1" alt="Billy Kong 近距離 VIP 魔術表演 私人晚宴" class="hidden w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
           </div>
@@ -490,7 +593,7 @@
           </div>
         </div>
         
-        <div class="group relative bg-zinc-900 overflow-hidden border border-zinc-800 hover:border-zinc-600 transition-colors">
+        <div class="group relative bg-zinc-900 overflow-hidden border border-zinc-800 glow-hover">
           <div class="h-48 lg:h-64 bg-zinc-800 overflow-hidden">
             <img id="service2" alt="Billy Kong 舞台幻術演出 企業活動表演" class="hidden w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
           </div>
@@ -502,7 +605,7 @@
           </div>
         </div>
 
-        <div class="group relative bg-zinc-900 overflow-hidden border border-zinc-800 hover:border-zinc-600 transition-colors">
+        <div class="group relative bg-zinc-900 overflow-hidden border border-zinc-800 glow-hover">
           <div class="h-48 lg:h-64 bg-zinc-800 overflow-hidden">
             <img id="service3" alt="Billy Kong 品牌訂製魔術體驗 產品發布表演" class="hidden w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
           </div>
@@ -514,7 +617,7 @@
           </div>
         </div>
 
-        <div class="group relative bg-zinc-900 overflow-hidden border border-zinc-800 hover:border-zinc-600 transition-colors">
+        <div class="group relative bg-zinc-900 overflow-hidden border border-zinc-800 glow-hover">
           <div class="h-48 lg:h-64 bg-zinc-800 overflow-hidden">
             <img id="service4" alt="Billy Kong 全程製作顧問 幻術技術統籌" class="hidden w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
           </div>
@@ -532,7 +635,7 @@
         <h4 class="text-2xl font-serif mb-4 text-white">Next Step 下一步</h4>
         <p class="text-zinc-400 mb-4 font-serif">Every collaboration begins with a conversation. Tell us about your event, and Billy will personally design a proposal tailored to your vision.</p>
         <p class="text-zinc-500 text-sm font-serif mb-8">每一次合作都從一個對話開始。告訴我們你的活動，Billy 將親自為你度身設計方案。</p>
-        <a href="mailto:BillyKongMagic@gmail.com" class="inline-block bg-white text-zinc-950 px-8 py-3 font-serif font-bold tracking-wider uppercase hover:bg-zinc-200 transition-colors">
+        <a href="mailto:BillyKongMagic@gmail.com" class="inline-block bg-gold text-gold-dark px-8 py-3 font-serif font-bold tracking-wider uppercase gold-cta-glow">
           Contact Now
         </a>
       </div>

@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="zh-HK">
 <head>
@@ -117,66 +118,6 @@
       height: 40%;
       background: radial-gradient(ellipse at center, rgba(212, 175, 106, 0.08) 0%, transparent 70%);
       pointer-events: none;
-    }
-    
-    /* ======== 終極 PDF 列印優化 (Print CSS) ======== */
-    @media print {
-      /* 1. 強制保留所有顏色與深色背景 */
-      * {
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-        color-adjust: exact !important;
-      }
-      body, html {
-        background-color: #09090b !important;
-        color: #e4e4e7 !important;
-      }
-      
-      /* 2. 簡報模式：讓每一個區塊自動成為獨立的一頁！ */
-      section {
-        page-break-after: always !important;
-        break-after: page !important;
-        padding: 2rem !important; /* 縮小留白，讓 A4 裝得下 */
-        min-height: 0 !important;
-        height: auto !important;
-      }
-      
-      /* 3. 防止卡片、清單、圖片從中間被切成兩半 */
-      .group, li, .grid > div, ul, p, h1, h2, h3, h4, img {
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
-      }
-
-      /* 4. 強制保留電腦版排版（覆蓋手機版設定） */
-      .grid { display: grid !important; }
-      .lg\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
-      .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
-      .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
-      .md\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
-      .lg\:grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)) !important; }
-      .lg\:col-span-5 { grid-column: span 5 / span 5 !important; }
-      .lg\:col-span-7 { grid-column: span 7 / span 7 !important; }
-      .lg\:flex-1 { flex: 1 1 0% !important; }
-      .lg\:border-b-0 { border-bottom-width: 0 !important; }
-      .lg\:border-r { border-right-width: 1px !important; }
-
-      /* 5. 修正列印時過大的間距與高度 */
-      .py-24, .lg\:py-24 { padding-top: 2rem !important; padding-bottom: 2rem !important; }
-      .mt-24, .lg\:mt-24 { margin-top: 2rem !important; }
-      .mb-24, .lg\:mb-24 { margin-bottom: 2rem !important; }
-      .gap-16 { gap: 2rem !important; }
-      .h-\[55vh\] { height: 400px !important; } /* 固定封面相片高度 */
-      
-      /* 6. 隱藏不必要的元素 (導覽列) 避免擋住文字 */
-      nav { display: none !important; }
-      
-      /* 7. 強制文字顏色避免反黑 */
-      .text-white { color: #ffffff !important; }
-      .text-zinc-400 { color: #a1a1aa !important; }
-      .text-zinc-500 { color: #71717a !important; }
-      .bg-zinc-950 { background-color: #09090b !important; }
-      .bg-zinc-900 { background-color: #18181b !important; }
-      .bg-zinc-800 { background-color: #27272a !important; }
     }
   </style>
 
@@ -766,3 +707,5 @@
 
 </body>
 </html>
+
+```

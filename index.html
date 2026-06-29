@@ -212,6 +212,16 @@
     .play-ring {
       transition: box-shadow 0.3s ease, transform 0.3s ease;
     }
+    /* 🌟 播放鍵三角形：用純CSS繪製，取代icon避免SVG重心偏移問題 */
+    .play-triangle {
+      width: 0;
+      height: 0;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-left: 13px solid var(--gold);
+      margin-left: 3px; /* 視覺光學置中：三角形尖端造成視覺空隙偏右，需向右補正 */
+      flex-shrink: 0;
+    }
   </style>
 
   <script>
@@ -768,7 +778,7 @@
             <div class="video-iframe-wrap hidden absolute inset-0 w-full h-full"></div>
             <div class="video-placeholder absolute inset-0 flex flex-col items-center justify-center gap-3 cursor-default">
               <div class="w-14 h-14 rounded-full flex items-center justify-center" style="border:1px solid rgba(212,175,106,0.4);">
-                <i data-lucide="play" class="w-5 h-5 text-gold" style="margin-left: 2px;"></i>
+                <div class="play-triangle"></div>
               </div>
               <p class="text-[11px] tracking-widest uppercase text-zinc-600 font-serif">影片即將上線<br/>Coming Soon</p>
             </div>
@@ -784,7 +794,7 @@
             <div class="video-iframe-wrap hidden absolute inset-0 w-full h-full"></div>
             <div class="video-placeholder absolute inset-0 flex flex-col items-center justify-center gap-3 cursor-default">
               <div class="w-14 h-14 rounded-full flex items-center justify-center" style="border:1px solid rgba(212,175,106,0.4);">
-                <i data-lucide="play" class="w-5 h-5 text-gold" style="margin-left: 2px;"></i>
+                <div class="play-triangle"></div>
               </div>
               <p class="text-[11px] tracking-widest uppercase text-zinc-600 font-serif">影片即將上線<br/>Coming Soon</p>
             </div>
@@ -800,7 +810,7 @@
             <div class="video-iframe-wrap hidden absolute inset-0 w-full h-full"></div>
             <div class="video-placeholder absolute inset-0 flex flex-col items-center justify-center gap-3 cursor-default">
               <div class="w-14 h-14 rounded-full flex items-center justify-center" style="border:1px solid rgba(212,175,106,0.4);">
-                <i data-lucide="play" class="w-5 h-5 text-gold" style="margin-left: 2px;"></i>
+                <div class="play-triangle"></div>
               </div>
               <p class="text-[11px] tracking-widest uppercase text-zinc-600 font-serif">影片即將上線<br/>Coming Soon</p>
             </div>

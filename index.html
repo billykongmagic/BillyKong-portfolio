@@ -223,6 +223,7 @@
       heroGrid1: "hero2.jpg",
       heroGrid2: "hero3.jpg",
       heroGrid3: "hero4.jpg",
+      logo: "logo.png",
       tour1: "tour.jpg",
       tour2: "tour2.jpg",
       tour3: "tour3.jpg",
@@ -266,6 +267,12 @@
             }
             img.classList.remove('hidden');
             img.parentElement.style.display = 'block'; // 修復網格黑塊
+            // logo 圖載入成功後，隱藏文字版的 fallback
+            if (id === 'logo') {
+              const fallback = document.getElementById('logoFallback');
+              if (fallback) fallback.classList.add('hidden');
+              img.parentElement.style.display = 'flex';
+            }
           } else {
             img.classList.add('hidden');
             // 如果是右側網格照片沒有網址，直接隱藏外層，讓剩下的照片自動變大
@@ -425,10 +432,11 @@
         <img id="heroGrid3" alt="Billy Kong 江尚峰 國際舞台魔術演出花絮 3" class="hidden object-cover w-full h-full opacity-60 group-hover:opacity-100 transition-opacity duration-700 grayscale group-hover:grayscale-0" />
       </div>
       <div class="relative overflow-hidden group bg-zinc-950 flex items-center justify-center flex-1 min-w-[40%] min-h-[45%]">
-        <div class="text-center p-6">
-          <i data-lucide="star" class="w-8 h-8 mx-auto mb-3 text-zinc-600 group-hover:text-white transition-colors duration-500"></i>
+        <div id="logoFallback" class="text-center p-6">
+          <i data-lucide="sparkles" class="w-8 h-8 mx-auto mb-3 text-zinc-600 group-hover:text-white transition-colors duration-500"></i>
           <p class="text-xs tracking-widest uppercase text-zinc-500 group-hover:text-zinc-300 transition-colors duration-500 font-serif">Premium<br/>Experience</p>
         </div>
+        <img id="logo" alt="Billy Kong Magic Logo" class="hidden w-2/5 max-w-[160px] object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
       </div>
     </div>
   </section>
@@ -760,7 +768,7 @@
             <div class="video-iframe-wrap hidden absolute inset-0 w-full h-full"></div>
             <div class="video-placeholder absolute inset-0 flex flex-col items-center justify-center gap-3 cursor-default">
               <div class="w-14 h-14 rounded-full flex items-center justify-center" style="border:1px solid rgba(212,175,106,0.4);">
-                <i data-lucide="play" class="w-5 h-5 text-gold"></i>
+                <i data-lucide="play" class="w-5 h-5 text-gold" style="margin-left: 2px;"></i>
               </div>
               <p class="text-[11px] tracking-widest uppercase text-zinc-600 font-serif">影片即將上線<br/>Coming Soon</p>
             </div>
@@ -776,7 +784,7 @@
             <div class="video-iframe-wrap hidden absolute inset-0 w-full h-full"></div>
             <div class="video-placeholder absolute inset-0 flex flex-col items-center justify-center gap-3 cursor-default">
               <div class="w-14 h-14 rounded-full flex items-center justify-center" style="border:1px solid rgba(212,175,106,0.4);">
-                <i data-lucide="play" class="w-5 h-5 text-gold"></i>
+                <i data-lucide="play" class="w-5 h-5 text-gold" style="margin-left: 2px;"></i>
               </div>
               <p class="text-[11px] tracking-widest uppercase text-zinc-600 font-serif">影片即將上線<br/>Coming Soon</p>
             </div>
@@ -792,7 +800,7 @@
             <div class="video-iframe-wrap hidden absolute inset-0 w-full h-full"></div>
             <div class="video-placeholder absolute inset-0 flex flex-col items-center justify-center gap-3 cursor-default">
               <div class="w-14 h-14 rounded-full flex items-center justify-center" style="border:1px solid rgba(212,175,106,0.4);">
-                <i data-lucide="play" class="w-5 h-5 text-gold"></i>
+                <i data-lucide="play" class="w-5 h-5 text-gold" style="margin-left: 2px;"></i>
               </div>
               <p class="text-[11px] tracking-widest uppercase text-zinc-600 font-serif">影片即將上線<br/>Coming Soon</p>
             </div>
@@ -890,7 +898,7 @@
       <h3 class="text-xl font-serif text-zinc-400 mb-4">江尚峰</h3>
       <p class="text-xs tracking-[0.2em] uppercase text-zinc-500 mb-12 font-serif">International Touring Star Illusionist</p>
       
-      <div class="flex flex-col md:flex-row justify-center items-center gap-8 mb-16">
+      <div class="flex flex-wrap justify-center items-center gap-x-8 gap-y-5 mb-16 max-w-2xl mx-auto">
         <a href="tel:+85366551654" class="flex items-center gap-2 text-zinc-300 hover:text-white transition-colors">
           <i data-lucide="phone" class="w-4 h-4"></i>
           <span class="font-serif">+853 6655 1654</span>

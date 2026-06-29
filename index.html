@@ -11,6 +11,37 @@
   <meta name="author" content="Billy Kong 江尚峰">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://billykongmagic.github.io/BillyKong-portfolio/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- JSON-LD Structured Data：讓 Google 能識別 Billy 的職業與社群帳號 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Billy Kong 江尚峰",
+    "alternateName": "江尚峰",
+    "jobTitle": "Illusionist & Stage Director",
+    "url": "https://billykongmagic.github.io/BillyKong-portfolio/",
+    "image": "https://billykongmagic.github.io/BillyKong-portfolio/hero.jpg",
+    "sameAs": [
+      "https://instagram.com/Billykongmagic",
+      "https://BillyKongMagic.com"
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Macau",
+      "addressCountry": "MO"
+    },
+    "email": "mailto:BillyKongMagic@gmail.com",
+    "telephone": "+853-6655-1654",
+    "memberOf": {
+      "@type": "Organization",
+      "name": "FISM - Fédération Internationale des Sociétés Magiques"
+    },
+    "description": "Franz Harary 亞洲核心成員，逾20年國際舞台經驗，3,000+ 場演出，澳門五星級酒店常駐魔術師。"
+  }
+  </script>
 
   <!-- Open Graph / Facebook, WhatsApp, LinkedIn -->
   <meta property="og:type" content="profile">
@@ -118,6 +149,69 @@
       background: radial-gradient(ellipse at center, rgba(212, 175, 106, 0.08) 0%, transparent 70%);
       pointer-events: none;
     }
+
+    /* 🌟 Back to Top 按鈕 */
+    #back-to-top {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(20, 20, 20, 0.85);
+      border: 1px solid rgba(212, 175, 106, 0.4);
+      box-shadow: 0 0 0 1px rgba(212, 175, 106, 0.15), 0 0 20px rgba(212, 175, 106, 0.1);
+      backdrop-filter: blur(6px);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      z-index: 60;
+      cursor: pointer;
+    }
+    #back-to-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    #back-to-top:hover {
+      box-shadow: 0 0 0 1px rgba(212, 175, 106, 0.6), 0 0 28px rgba(212, 175, 106, 0.3);
+    }
+
+    /* 🌟 Sticky nav 錨點連結 */
+    .nav-link {
+      transition: color 0.3s ease;
+    }
+    .nav-link:hover {
+      color: var(--gold) !important;
+    }
+
+    /* 🌟 行動版漢堡選單 */
+    #mobile-menu {
+      transition: max-height 0.35s ease, opacity 0.3s ease;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+    }
+    #mobile-menu.open {
+      max-height: 400px;
+      opacity: 1;
+    }
+
+    /* 🌟 影片播放縮圖 hover 提示 */
+    .video-placeholder.has-thumb {
+      cursor: pointer;
+    }
+    .video-placeholder.has-thumb:hover .play-ring {
+      box-shadow: 0 0 0 1px rgba(212, 175, 106, 0.8), 0 0 24px rgba(212, 175, 106, 0.4);
+      transform: scale(1.08);
+    }
+    .play-ring {
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
   </style>
 
   <script>
@@ -162,6 +256,14 @@
         if (img) {
           if (url && url.trim() !== "") {
             img.src = url;
+            // 🌟 效能優化：非首屏圖片延遲載入，hero 主圖優先載入
+            if (id === 'heroBackground') {
+              img.loading = 'eager';
+              img.setAttribute('fetchpriority', 'high');
+            } else {
+              img.loading = 'lazy';
+              img.decoding = 'async';
+            }
             img.classList.remove('hidden');
             img.parentElement.style.display = 'block'; // 修復網格黑塊
           } else {
@@ -174,17 +276,33 @@
         }
       });
 
+      // 🌟 影片改為「點擊才載入 iframe」(facade 模式)：
+      // 加快首屏速度，避免同時建立 3 個 YouTube player 連線
       Object.entries(MY_VIDEOS).forEach(([id, videoId]) => {
         const card = document.getElementById(id);
         if (!card) return;
         const placeholder = card.querySelector('.video-placeholder');
         const iframeWrap = card.querySelector('.video-iframe-wrap');
         if (videoId && videoId.trim() !== "") {
-          if (iframeWrap) {
-            iframeWrap.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
-            iframeWrap.classList.remove('hidden');
+          if (placeholder) {
+            placeholder.classList.add('has-thumb');
+            // 用 YouTube 縮圖當背景，取代純黑底
+            placeholder.style.backgroundImage = `linear-gradient(rgba(9,9,11,0.55), rgba(9,9,11,0.75)), url('https://i.ytimg.com/vi/${videoId}/hqdefault.jpg')`;
+            placeholder.style.backgroundSize = 'cover';
+            placeholder.style.backgroundPosition = 'center';
+            const label = placeholder.querySelector('p');
+            if (label) label.innerHTML = '點擊播放<br/>Click to Play';
+            const ring = placeholder.querySelector('div');
+            if (ring) ring.classList.add('play-ring');
+
+            placeholder.addEventListener('click', () => {
+              if (iframeWrap) {
+                iframeWrap.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${videoId}?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>`;
+                iframeWrap.classList.remove('hidden');
+              }
+              placeholder.classList.add('hidden');
+            }, { once: true });
           }
-          if (placeholder) placeholder.classList.add('hidden');
         } else {
           if (placeholder) placeholder.classList.remove('hidden');
           if (iframeWrap) iframeWrap.classList.add('hidden');
@@ -192,15 +310,83 @@
       });
 
       lucide.createIcons();
+
+      // 🌟 Back to top 顯示/隱藏 + 點擊回頂
+      const backToTop = document.getElementById('back-to-top');
+      if (backToTop) {
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 600) {
+            backToTop.classList.add('visible');
+          } else {
+            backToTop.classList.remove('visible');
+          }
+        });
+        backToTop.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      // 🌟 行動版漢堡選單開關
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', () => {
+          mobileMenu.classList.toggle('open');
+          const icon = menuBtn.querySelector('i');
+          const isOpen = mobileMenu.classList.contains('open');
+          if (icon) icon.setAttribute('data-lucide', isOpen ? 'x' : 'menu');
+          lucide.createIcons();
+        });
+        // 點擊選單內連結後自動收合
+        mobileMenu.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+            const icon = menuBtn.querySelector('i');
+            if (icon) icon.setAttribute('data-lucide', 'menu');
+            lucide.createIcons();
+          });
+        });
+      }
     });
   </script>
 </head>
 <body class="min-h-screen bg-zinc-950 text-zinc-300 font-sans selection:bg-zinc-700 selection:text-white">
 
-  <nav class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 bg-zinc-950/80 backdrop-blur-md text-white">
-    <div class="text-xs sm:text-sm tracking-widest font-bold uppercase">Billy Kong</div>
-    <div class="text-[10px] sm:text-xs tracking-widest uppercase opacity-70 text-right">Artist Profile<span class="hidden sm:inline"> · Confidential</span></div>
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-zinc-950/80 backdrop-blur-md text-white border-b border-zinc-900/80">
+    <div class="flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4">
+      <div class="text-xs sm:text-sm tracking-widest font-bold uppercase">Billy Kong</div>
+
+      <!-- 桌面版錨點導覽 -->
+      <div class="hidden lg:flex items-center gap-8 text-[11px] tracking-widest uppercase text-zinc-400 font-serif">
+        <a href="#about" class="nav-link">Profile</a>
+        <a href="#tours" class="nav-link">Tours</a>
+        <a href="#testimonials" class="nav-link">Reviews</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="https://wa.me/85366551654" target="_blank" rel="noreferrer" class="nav-link text-gold">Contact</a>
+      </div>
+
+      <!-- 行動版漢堡按鈕 -->
+      <button id="mobile-menu-btn" class="lg:hidden flex items-center justify-center w-9 h-9" aria-label="Menu">
+        <i data-lucide="menu" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <!-- 行動版下拉選單 -->
+    <div id="mobile-menu" class="lg:hidden px-4 sm:px-6 border-t border-zinc-900/80">
+      <div class="flex flex-col gap-4 py-5 text-xs tracking-widest uppercase text-zinc-300 font-serif">
+        <a href="#about" class="nav-link">Profile 簡介</a>
+        <a href="#tours" class="nav-link">Tours 巡演</a>
+        <a href="#testimonials" class="nav-link">Reviews 評價</a>
+        <a href="#services" class="nav-link">Services 服務</a>
+        <a href="https://wa.me/85366551654" target="_blank" rel="noreferrer" class="nav-link text-gold">WhatsApp Contact</a>
+      </div>
+    </div>
   </nav>
+
+  <!-- Back to top -->
+  <button id="back-to-top" aria-label="Back to top">
+    <i data-lucide="arrow-up" class="w-4 h-4 text-gold"></i>
+  </button>
 
   <section class="grid grid-cols-1 lg:grid-cols-2 min-h-screen pt-[60px] lg:pt-0 relative conic-glow-frame overflow-hidden">
     <div class="blueprint-grid"></div>
@@ -247,7 +433,7 @@
     </div>
   </section>
 
-  <section class="py-12 sm:py-16 lg:py-24 px-6 lg:px-16 max-w-7xl mx-auto">
+  <section id="about" class="py-12 sm:py-16 lg:py-24 px-6 lg:px-16 max-w-7xl mx-auto">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
       <div class="lg:col-span-5">
         <h2 class="text-xs tracking-[0.3em] text-zinc-500 uppercase mb-4 font-serif">Artist Profile 藝術家簡介</h2>
@@ -286,12 +472,12 @@
         <div>
           <h4 class="text-xs tracking-widest text-zinc-500 uppercase mb-6 font-serif">Credentials 專業資格徽章</h4>
           <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <li class="flex items-center gap-3 text-sm text-zinc-300 font-serif"><i data-lucide="check-circle" class="w-4 h-4 text-gold"></i> FISM Member · 國際魔術聯盟</li>
-            <li class="flex items-center gap-3 text-sm text-zinc-300 font-serif"><i data-lucide="check-circle" class="w-4 h-4 text-gold"></i> Franz Harary Asia Team · 亞洲核心成員</li>
+            <li class="flex items-center gap-3 text-sm text-white font-medium font-serif"><i data-lucide="check-circle" class="w-4 h-4 text-gold"></i> FISM Member · 國際魔術聯盟</li>
+            <li class="flex items-center gap-3 text-sm text-white font-medium font-serif"><i data-lucide="check-circle" class="w-4 h-4 text-gold"></i> Franz Harary Asia Team · 亞洲核心成員</li>
             <li class="flex items-center gap-3 text-sm text-zinc-300 font-serif"><i data-lucide="check-circle" class="w-4 h-4 text-gold"></i> Fukai Magic School, Japan</li>
             <li class="flex items-center gap-3 text-sm text-zinc-300 font-serif"><i data-lucide="check-circle" class="w-4 h-4 text-gold"></i> 澳門魔術之都協會 常任理事</li>
             <li class="flex items-center gap-3 text-sm text-zinc-300 font-serif"><i data-lucide="award" class="w-4 h-4 text-gold"></i> Macau Int'l Magic Festival · 近距離組亞軍</li>
-            <li class="flex items-center gap-3 text-sm text-white font-medium font-serif"><i data-lucide="award" class="w-4 h-4 text-gold"></i> 十月初五街節民間高手比賽 2025 冠軍</li>
+            <li class="flex items-center gap-3 text-sm text-zinc-300 font-serif"><i data-lucide="award" class="w-4 h-4 text-gold"></i> 十月初五街節民間高手比賽 2025 冠軍</li>
           </ul>
         </div>
       </div>
@@ -331,7 +517,7 @@
     </div>
   </section>
 
-  <section class="py-12 sm:py-16 lg:py-24 bg-zinc-950 border-t border-zinc-900 relative overflow-hidden">
+  <section id="tours" class="py-12 sm:py-16 lg:py-24 bg-zinc-950 border-t border-zinc-900 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-6 lg:px-16 relative z-10">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
         
@@ -433,7 +619,7 @@
     </div>
   </section>
 
-  <section class="py-12 sm:py-16 lg:py-24 border-t border-zinc-900">
+  <section id="testimonials" class="py-12 sm:py-16 lg:py-24 border-t border-zinc-900">
     
     <!-- Google Reviews Section -->
     <div class="max-w-7xl mx-auto px-6 lg:px-16 mb-24">
@@ -448,7 +634,10 @@
           <p class="text-white font-serif italic leading-relaxed mb-6">"Absolutely mesmerizing experience. His attention to detail is world-class."</p>
           <div class="flex items-center gap-3">
             <div class="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center text-xs font-bold text-zinc-500 uppercase">S</div>
-            <span class="text-sm text-zinc-400 font-serif">STDM (澳門旅遊娛樂股份有限公司)</span>
+            <div>
+              <span class="text-sm text-zinc-300 font-serif block">STDM 澳門旅遊娛樂股份有限公司</span>
+              <span class="text-xs text-zinc-600 font-serif">企業活動主辦方</span>
+            </div>
           </div>
         </div>
 
@@ -460,7 +649,10 @@
           <p class="text-white font-serif italic leading-relaxed mb-6">"A mind-blowing performance! Billy engaged the entire audience perfectly. Highly recommended."</p>
           <div class="flex items-center gap-3">
             <div class="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center text-xs font-bold text-zinc-500 uppercase">H</div>
-            <span class="text-sm text-zinc-400 font-serif">Hermès VIP Guest</span>
+            <div>
+              <span class="text-sm text-zinc-300 font-serif block">Hermès</span>
+              <span class="text-xs text-zinc-600 font-serif">VIP 客戶體驗活動嘉賓</span>
+            </div>
           </div>
         </div>
 
@@ -472,7 +664,10 @@
           <p class="text-white font-serif italic leading-relaxed mb-6">"A truly unforgettable evening. The best illusionist we have ever seen in Macau."</p>
           <div class="flex items-center gap-3">
             <div class="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center text-xs font-bold text-zinc-500 uppercase">L</div>
-            <span class="text-sm text-zinc-400 font-serif">Louis</span>
+            <div>
+              <span class="text-sm text-zinc-300 font-serif block">Louis</span>
+              <span class="text-xs text-zinc-600 font-serif">私人晚宴賓客</span>
+            </div>
           </div>
         </div>
 
@@ -480,7 +675,16 @@
     </div>
 
     <div class="max-w-7xl mx-auto px-6 lg:px-16 mb-24">
-      <h3 class="text-xs tracking-[0.3em] text-zinc-500 uppercase mb-8 border-b border-zinc-900 pb-4 font-serif">Selected Brand Partnerships 精選品牌合作</h3>
+      <h3 class="text-xs tracking-[0.3em] text-zinc-500 uppercase mb-6 border-b border-zinc-900 pb-4 font-serif">Selected Brand Partnerships 精選品牌合作</h3>
+      <div class="flex flex-wrap items-center gap-x-8 gap-y-3 mb-10 text-zinc-500 font-serif text-sm tracking-wide">
+        <span class="text-zinc-300">Hermès</span>
+        <span class="text-zinc-700">·</span>
+        <span>Macau International Airport</span>
+        <span class="text-zinc-700">·</span>
+        <span>澳門國際環保合作發展論壇</span>
+        <span class="text-zinc-700">·</span>
+        <span>澳門田耕閣手信</span>
+      </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div class="group relative bg-zinc-900/30 border border-zinc-800/50 glow-hover overflow-hidden">
           <div class="h-64 sm:h-72 bg-zinc-800 overflow-hidden">
@@ -603,7 +807,7 @@
     </div>
   </section>
 
-  <section class="py-12 sm:py-16 lg:py-24 bg-zinc-950 border-t border-zinc-900">
+  <section id="services" class="py-12 sm:py-16 lg:py-24 bg-zinc-950 border-t border-zinc-900">
     <div class="max-w-7xl mx-auto px-6 lg:px-16">
       <h2 class="text-xs tracking-[0.3em] text-zinc-500 uppercase mb-4 text-center font-serif">What We Can Create Together</h2>
       <h3 class="text-3xl sm:text-4xl font-serif text-center text-white mb-12 sm:mb-16">服務項目</h3>
@@ -614,10 +818,11 @@
           <div class="h-48 lg:h-64 bg-zinc-800 overflow-hidden">
             <img id="service1" alt="Billy Kong 近距離 VIP 魔術表演 私人晚宴" class="hidden w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
           </div>
-          <div class="p-8 relative z-10 bg-gradient-to-t from-zinc-900 via-zinc-900 to-transparent -mt-20 pt-24">
+          <div class="p-8 relative z-10 bg-gradient-to-t from-zinc-950 via-zinc-900/95 to-transparent -mt-20 pt-24">
             <h4 class="text-2xl font-serif text-white mb-2">Close-up & VIP Magic<br/><span class="text-lg text-zinc-400">近距離及 VIP 魔術</span></h4>
             <p class="text-zinc-500 mb-4 font-serif">Tailored for private dinners, VIP receptions and brand events. Intimate, unforgettable, elegant.</p>
             <p class="text-sm font-medium text-zinc-300 font-serif mb-3">私人晚宴 · VIP 接待 · 品牌活動 · 酒會</p>
+            <p class="text-[11px] text-zinc-600 uppercase tracking-wider font-serif mb-3">適合 10–80 人 · 建議提前 2–4 週洽談</p>
             <p class="text-sm italic text-zinc-400 font-serif">每一桌，都是頭等席。</p>
           </div>
         </div>
@@ -626,10 +831,11 @@
           <div class="h-48 lg:h-64 bg-zinc-800 overflow-hidden">
             <img id="service2" alt="Billy Kong 舞台幻術演出 企業活動表演" class="hidden w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
           </div>
-          <div class="p-8 relative z-10 bg-gradient-to-t from-zinc-900 via-zinc-900 to-transparent -mt-20 pt-24">
+          <div class="p-8 relative z-10 bg-gradient-to-t from-zinc-950 via-zinc-900/95 to-transparent -mt-20 pt-24">
             <h4 class="text-2xl font-serif text-white mb-2">Stage Illusion Show<br/><span class="text-lg text-zinc-400">互動舞台魔術演出</span></h4>
             <p class="text-zinc-500 mb-4 font-serif">Grand-scale illusions for galas, award ceremonies and corporate showcases.</p>
             <p class="text-sm font-medium text-zinc-300 font-serif mb-3">企業年會 · 頒獎禮 · 節慶晚宴 · 商場活動</p>
+            <p class="text-[11px] text-zinc-600 uppercase tracking-wider font-serif mb-3">適合 100–5,000+ 人 · 建議提前 6–8 週洽談</p>
             <p class="text-sm italic text-zinc-400 font-serif">萬人舞台，一瞬驚艷全場。</p>
           </div>
         </div>
@@ -638,10 +844,11 @@
           <div class="h-48 lg:h-64 bg-zinc-800 overflow-hidden">
             <img id="service3" alt="Billy Kong 品牌訂製魔術體驗 產品發布表演" class="hidden w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
           </div>
-          <div class="p-8 relative z-10 bg-gradient-to-t from-zinc-900 via-zinc-900 to-transparent -mt-20 pt-24">
+          <div class="p-8 relative z-10 bg-gradient-to-t from-zinc-950 via-zinc-900/95 to-transparent -mt-20 pt-24">
             <h4 class="text-2xl font-serif text-white mb-2">Brand Experience Design<br/><span class="text-lg text-zinc-400">品牌訂製魔術體驗</span></h4>
             <p class="text-zinc-500 mb-4 font-serif">Custom illusion concepts built around your brand story, product launch or campaign.</p>
             <p class="text-sm font-medium text-zinc-300 font-serif mb-3">品牌故事融入訂製幻術 · 產品發布 · 推廣活動</p>
+            <p class="text-[11px] text-zinc-600 uppercase tracking-wider font-serif mb-3">適合品牌方客製合作 · 建議提前 8–12 週洽談</p>
             <p class="text-sm italic text-zinc-400 font-serif">把品牌故事，變成一場奇蹟。</p>
           </div>
         </div>
@@ -650,10 +857,11 @@
           <div class="h-48 lg:h-64 bg-zinc-800 overflow-hidden">
             <img id="service4" alt="Billy Kong 全程製作顧問 幻術技術統籌" class="hidden w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
           </div>
-          <div class="p-8 relative z-10 bg-gradient-to-t from-zinc-900 via-zinc-900 to-transparent -mt-20 pt-24">
+          <div class="p-8 relative z-10 bg-gradient-to-t from-zinc-950 via-zinc-900/95 to-transparent -mt-20 pt-24">
             <h4 class="text-2xl font-serif text-white mb-2">Creative Consultation<br/><span class="text-lg text-zinc-400">全程製作顧問</span></h4>
             <p class="text-zinc-500 mb-4 font-serif">From concept to stage — production design, illusion planning and technical direction.</p>
             <p class="text-sm font-medium text-zinc-300 font-serif mb-3">概念至舞台 · 創意策劃 · 技術統籌 · 全程跟進</p>
+            <p class="text-[11px] text-zinc-600 uppercase tracking-wider font-serif mb-3">適合大型製作團隊 · 依專案規模另行報價</p>
             <p class="text-sm italic text-zinc-400 font-serif">由構思到落幕，全程為你把關。</p>
           </div>
         </div>
@@ -664,9 +872,14 @@
         <h4 class="text-2xl font-serif mb-4 text-white">Next Step 下一步</h4>
         <p class="text-zinc-400 mb-4 font-serif">Every collaboration begins with a conversation. Tell us about your event, and Billy will personally design a proposal tailored to your vision.</p>
         <p class="text-zinc-500 text-sm font-serif mb-8">每一次合作都從一個對話開始。告訴我們你的活動，Billy 將親自為你度身設計方案。</p>
-        <a href="mailto:BillyKongMagic@gmail.com" class="inline-block bg-gold text-gold-dark px-8 py-3 font-serif font-bold tracking-wider uppercase gold-cta-glow">
-          Contact Now
-        </a>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <a href="https://wa.me/85366551654" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 bg-gold text-gold-dark px-8 py-3 font-serif font-bold tracking-wider uppercase gold-cta-glow">
+            <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp
+          </a>
+          <a href="mailto:BillyKongMagic@gmail.com" class="inline-flex items-center gap-2 border border-zinc-700 text-zinc-300 hover:border-gold hover:text-gold px-8 py-3 font-serif font-bold tracking-wider uppercase transition-colors">
+            <i data-lucide="mail" class="w-4 h-4"></i> Email
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -681,6 +894,10 @@
         <a href="tel:+85366551654" class="flex items-center gap-2 text-zinc-300 hover:text-white transition-colors">
           <i data-lucide="phone" class="w-4 h-4"></i>
           <span class="font-serif">+853 6655 1654</span>
+        </a>
+        <a href="https://wa.me/85366551654" target="_blank" rel="noreferrer" class="flex items-center gap-2 text-zinc-300 hover:text-white transition-colors">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span class="font-serif">WhatsApp</span>
         </a>
         <a href="mailto:BillyKongMagic@gmail.com" class="flex items-center gap-2 text-zinc-300 hover:text-white transition-colors">
           <i data-lucide="mail" class="w-4 h-4"></i>

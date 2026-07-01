@@ -265,6 +265,14 @@
       margin-left: 4px; /* 視覺光學置中：三角形尖端造成視覺空隙偏右，需向右補正 */
       flex-shrink: 0;
     }
+
+    /* Brand logo wall: fallback text and image stack within the same cell */
+    .logo-cell {
+      position: relative;
+    }
+    .logo-cell img {
+      position: absolute;
+    }
   </style>
 
   <script>
@@ -290,6 +298,25 @@
       brand3: "brand3.jpg",
       brand4: "brand4.jpg",
     };
+
+    // ==========================================
+    // Brand Partnership Logo Wall
+    // Leave url: "" to show name as text; leave both empty to hide the slot
+    // ==========================================
+    const MY_LOGOS = [
+      { name: "Hermès",                         url: "" },
+      { name: "Macau Int'l Airport",            url: "" },
+      { name: "Macau Int'l Environmental Forum", url: "" },
+      { name: "Tin Kang Kok Souvenirs",          url: "" },
+      { name: "", url: "" },
+      { name: "", url: "" },
+      { name: "", url: "" },
+      { name: "", url: "" },
+      { name: "", url: "" },
+      { name: "", url: "" },
+      { name: "", url: "" },
+      { name: "", url: "" },
+    ];
 
     // ==========================================
     // 🌟 你的專屬影片設定區 (請貼上 YouTube 影片 ID)
@@ -333,6 +360,27 @@
               img.parentElement.style.display = 'none';
             }
           }
+        }
+      });
+
+      // Brand logo wall: dynamically populate from MY_LOGOS array
+      MY_LOGOS.forEach((item, i) => {
+        const cell = document.getElementById('logoCell' + (i + 1));
+        if (!cell) return;
+        const hasName = item.name && item.name.trim() !== "";
+        const hasUrl  = item.url  && item.url.trim()  !== "";
+        if (!hasName && !hasUrl) return;
+        cell.classList.remove('hidden');
+        cell.classList.add('flex');
+        const fallback = cell.querySelector('.logo-fallback');
+        const img      = cell.querySelector('.logo-img');
+        if (hasName) fallback.textContent = item.name;
+        if (hasUrl) {
+          img.src     = item.url;
+          img.alt     = item.name || 'Partner logo';
+          img.loading = 'lazy';
+          img.classList.remove('hidden');
+          if (fallback) fallback.classList.add('hidden');
         }
       });
 
@@ -741,14 +789,57 @@
 
     <div class="max-w-7xl mx-auto px-6 lg:px-16 mb-24">
       <h3 class="text-xs tracking-[0.3em] text-zinc-500 uppercase mb-6 border-b border-zinc-900 pb-4 font-serif">Selected Brand Partnerships</h3>
-      <div class="flex flex-wrap items-center gap-x-8 gap-y-3 mb-10 text-zinc-500 font-serif text-sm tracking-wide">
-        <span class="text-zinc-300">Hermès</span>
-        <span class="text-zinc-700">·</span>
-        <span>Macau International Airport</span>
-        <span class="text-zinc-700">·</span>
-        <span>Macau International Environmental Co-operation Forum</span>
-        <span class="text-zinc-700">·</span>
-        <span>Tin Kang Kok Macau Souvenirs</span>
+
+      <!-- Logo wall: muted grayscale by default, full color on hover; falls back to text when no image is set -->
+      <div class="flex flex-wrap gap-3 sm:gap-4 mb-10 pb-10 border-b border-zinc-900">
+        <div id="logoCell1" class="logo-cell hidden items-center justify-center h-20 sm:h-24 w-[calc(50%-6px)] sm:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] bg-zinc-900/30 border border-zinc-800/50 px-3 sm:px-4 shrink-0">
+          <span class="logo-fallback text-zinc-400 font-serif text-xs sm:text-sm text-center leading-snug"></span>
+          <img class="logo-img hidden max-h-10 sm:max-h-12 max-w-[80%] object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 absolute" alt="" />
+        </div>
+        <div id="logoCell2" class="logo-cell hidden items-center justify-center h-20 sm:h-24 w-[calc(50%-6px)] sm:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] bg-zinc-900/30 border border-zinc-800/50 px-3 sm:px-4 shrink-0">
+          <span class="logo-fallback text-zinc-400 font-serif text-xs sm:text-sm text-center leading-snug"></span>
+          <img class="logo-img hidden max-h-10 sm:max-h-12 max-w-[80%] object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 absolute" alt="" />
+        </div>
+        <div id="logoCell3" class="logo-cell hidden items-center justify-center h-20 sm:h-24 w-[calc(50%-6px)] sm:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] bg-zinc-900/30 border border-zinc-800/50 px-3 sm:px-4 shrink-0">
+          <span class="logo-fallback text-zinc-400 font-serif text-xs sm:text-sm text-center leading-snug"></span>
+          <img class="logo-img hidden max-h-10 sm:max-h-12 max-w-[80%] object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 absolute" alt="" />
+        </div>
+        <div id="logoCell4" class="logo-cell hidden items-center justify-center h-20 sm:h-24 w-[calc(50%-6px)] sm:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] bg-zinc-900/30 border border-zinc-800/50 px-3 sm:px-4 shrink-0">
+          <span class="logo-fallback text-zinc-400 font-serif text-xs sm:text-sm text-center leading-snug"></span>
+          <img class="logo-img hidden max-h-10 sm:max-h-12 max-w-[80%] object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 absolute" alt="" />
+        </div>
+        <div id="logoCell5" class="logo-cell hidden items-center justify-center h-20 sm:h-24 w-[calc(50%-6px)] sm:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] bg-zinc-900/30 border border-zinc-800/50 px-3 sm:px-4 shrink-0">
+          <span class="logo-fallback text-zinc-400 font-serif text-xs sm:text-sm text-center leading-snug"></span>
+          <img class="logo-img hidden max-h-10 sm:max-h-12 max-w-[80%] object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 absolute" alt="" />
+        </div>
+        <div id="logoCell6" class="logo-cell hidden items-center justify-center h-20 sm:h-24 w-[calc(50%-6px)] sm:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] bg-zinc-900/30 border border-zinc-800/50 px-3 sm:px-4 shrink-0">
+          <span class="logo-fallback text-zinc-400 font-serif text-xs sm:text-sm text-center leading-snug"></span>
+          <img class="logo-img hidden max-h-10 sm:max-h-12 max-w-[80%] object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 absolute" alt="" />
+        </div>
+        <div id="logoCell7" class="logo-cell hidden items-center justify-center h-20 sm:h-24 w-[calc(50%-6px)] sm:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] bg-zinc-900/30 border border-zinc-800/50 px-3 sm:px-4 shrink-0">
+          <span class="logo-fallback text-zinc-400 font-serif text-xs sm:text-sm text-center leading-snug"></span>
+          <img class="logo-img hidden max-h-10 sm:max-h-12 max-w-[80%] object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 absolute" alt="" />
+        </div>
+        <div id="logoCell8" class="logo-cell hidden items-center justify-center h-20 sm:h-24 w-[calc(50%-6px)] sm:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] bg-zinc-900/30 border border-zinc-800/50 px-3 sm:px-4 shrink-0">
+          <span class="logo-fallback text-zinc-400 font-serif text-xs sm:text-sm text-center leading-snug"></span>
+          <img class="logo-img hidden max-h-10 sm:max-h-12 max-w-[80%] object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 absolute" alt="" />
+        </div>
+        <div id="logoCell9" class="logo-cell hidden items-center justify-center h-20 sm:h-24 w-[calc(50%-6px)] sm:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] bg-zinc-900/30 border border-zinc-800/50 px-3 sm:px-4 shrink-0">
+          <span class="logo-fallback text-zinc-400 font-serif text-xs sm:text-sm text-center leading-snug"></span>
+          <img class="logo-img hidden max-h-10 sm:max-h-12 max-w-[80%] object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 absolute" alt="" />
+        </div>
+        <div id="logoCell10" class="logo-cell hidden items-center justify-center h-20 sm:h-24 w-[calc(50%-6px)] sm:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] bg-zinc-900/30 border border-zinc-800/50 px-3 sm:px-4 shrink-0">
+          <span class="logo-fallback text-zinc-400 font-serif text-xs sm:text-sm text-center leading-snug"></span>
+          <img class="logo-img hidden max-h-10 sm:max-h-12 max-w-[80%] object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 absolute" alt="" />
+        </div>
+        <div id="logoCell11" class="logo-cell hidden items-center justify-center h-20 sm:h-24 w-[calc(50%-6px)] sm:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] bg-zinc-900/30 border border-zinc-800/50 px-3 sm:px-4 shrink-0">
+          <span class="logo-fallback text-zinc-400 font-serif text-xs sm:text-sm text-center leading-snug"></span>
+          <img class="logo-img hidden max-h-10 sm:max-h-12 max-w-[80%] object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 absolute" alt="" />
+        </div>
+        <div id="logoCell12" class="logo-cell hidden items-center justify-center h-20 sm:h-24 w-[calc(50%-6px)] sm:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] bg-zinc-900/30 border border-zinc-800/50 px-3 sm:px-4 shrink-0">
+          <span class="logo-fallback text-zinc-400 font-serif text-xs sm:text-sm text-center leading-snug"></span>
+          <img class="logo-img hidden max-h-10 sm:max-h-12 max-w-[80%] object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 absolute" alt="" />
+        </div>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div class="group relative bg-zinc-900/30 border border-zinc-800/50 glow-hover overflow-hidden">

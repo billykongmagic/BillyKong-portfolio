@@ -117,7 +117,7 @@
     }
 
     .glow-hover {
-      transition: box-shadow 0.4s ease, border-color 0.4s ease;
+      transition: box-shadow 0.4s ease, border-color 0.4s ease, background-color 0.4s ease;
       box-shadow: inset 0 0 0 1px rgba(212, 175, 106, 0.08);
     }
     .glow-hover:hover {
@@ -755,57 +755,60 @@
     <div class="max-w-7xl mx-auto px-6 lg:px-16 mb-24">
       <h3 class="text-xs tracking-[0.3em] text-zinc-500 uppercase mb-6 border-b border-zinc-900 pb-4 font-serif">Selected Brand Partnerships 精選品牌合作</h3>
 
-      <!-- Logo 牆 -->
-      <div class="flex flex-wrap gap-3 sm:gap-4 mb-10 pb-10 border-b border-zinc-900">
-        <div id="logoCell1" class="logo-cell hidden items-center justify-center h-20 sm:h-24 w-[calc(50%-6px)] sm:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] bg-zinc-900/30 border border-zinc-800/50 px-3 sm:px-4 shrink-0">
-          <span class="logo-fallback text-zinc-400 font-serif text-xs sm:text-sm text-center leading-snug"></span>
-          <img class="logo-img hidden max-h-10 sm:max-h-12 max-w-[80%] object-contain grayscale opacity-50 reveal-opacity-50 transition-all duration-500 absolute reveal-target" alt="" />
+      <!-- 🌟 放大版高質感 Logo 牆 (CSS Grid) 🌟 -->
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 mb-10 pb-10 border-b border-zinc-900">
+        
+        <div id="logoCell1" class="logo-cell hidden items-center justify-center h-28 sm:h-36 bg-zinc-900/30 border border-zinc-800/50 p-4 sm:p-6 glow-hover">
+          <span class="logo-fallback text-zinc-400 font-serif text-sm sm:text-base text-center leading-snug"></span>
+          <img class="logo-img hidden max-h-14 sm:max-h-20 max-w-[85%] object-contain grayscale opacity-50 reveal-opacity-50 transition-all duration-500 absolute reveal-target" alt="" />
         </div>
-        <div id="logoCell2" class="logo-cell hidden items-center justify-center h-20 sm:h-24 w-[calc(50%-6px)] sm:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] bg-zinc-900/30 border border-zinc-800/50 px-3 sm:px-4 shrink-0">
-          <span class="logo-fallback text-zinc-400 font-serif text-xs sm:text-sm text-center leading-snug"></span>
-          <img class="logo-img hidden max-h-10 sm:max-h-12 max-w-[80%] object-contain grayscale opacity-50 reveal-opacity-50 transition-all duration-500 absolute reveal-target" alt="" />
+        <div id="logoCell2" class="logo-cell hidden items-center justify-center h-28 sm:h-36 bg-zinc-900/30 border border-zinc-800/50 p-4 sm:p-6 glow-hover">
+          <span class="logo-fallback text-zinc-400 font-serif text-sm sm:text-base text-center leading-snug"></span>
+          <img class="logo-img hidden max-h-14 sm:max-h-20 max-w-[85%] object-contain grayscale opacity-50 reveal-opacity-50 transition-all duration-500 absolute reveal-target" alt="" />
         </div>
-        <div id="logoCell3" class="logo-cell hidden items-center justify-center h-20 sm:h-24 w-[calc(50%-6px)] sm:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] bg-zinc-900/30 border border-zinc-800/50 px-3 sm:px-4 shrink-0">
-          <span class="logo-fallback text-zinc-400 font-serif text-xs sm:text-sm text-center leading-snug"></span>
-          <img class="logo-img hidden max-h-10 sm:max-h-12 max-w-[80%] object-contain grayscale opacity-50 reveal-opacity-50 transition-all duration-500 absolute reveal-target" alt="" />
+        <div id="logoCell3" class="logo-cell hidden items-center justify-center h-28 sm:h-36 bg-zinc-900/30 border border-zinc-800/50 p-4 sm:p-6 glow-hover">
+          <span class="logo-fallback text-zinc-400 font-serif text-sm sm:text-base text-center leading-snug"></span>
+          <img class="logo-img hidden max-h-14 sm:max-h-20 max-w-[85%] object-contain grayscale opacity-50 reveal-opacity-50 transition-all duration-500 absolute reveal-target" alt="" />
         </div>
-        <div id="logoCell4" class="logo-cell hidden items-center justify-center h-20 sm:h-24 w-[calc(50%-6px)] sm:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] bg-zinc-900/30 border border-zinc-800/50 px-3 sm:px-4 shrink-0">
-          <span class="logo-fallback text-zinc-400 font-serif text-xs sm:text-sm text-center leading-snug"></span>
-          <img class="logo-img hidden max-h-10 sm:max-h-12 max-w-[80%] object-contain grayscale opacity-50 reveal-opacity-50 transition-all duration-500 absolute reveal-target" alt="" />
+        <div id="logoCell4" class="logo-cell hidden items-center justify-center h-28 sm:h-36 bg-zinc-900/30 border border-zinc-800/50 p-4 sm:p-6 glow-hover">
+          <span class="logo-fallback text-zinc-400 font-serif text-sm sm:text-base text-center leading-snug"></span>
+          <img class="logo-img hidden max-h-14 sm:max-h-20 max-w-[85%] object-contain grayscale opacity-50 reveal-opacity-50 transition-all duration-500 absolute reveal-target" alt="" />
         </div>
-        <div id="logoCell5" class="logo-cell hidden items-center justify-center h-20 sm:h-24 w-[calc(50%-6px)] sm:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] bg-zinc-900/30 border border-zinc-800/50 px-3 sm:px-4 shrink-0">
-          <span class="logo-fallback text-zinc-400 font-serif text-xs sm:text-sm text-center leading-snug"></span>
-          <img class="logo-img hidden max-h-10 sm:max-h-12 max-w-[80%] object-contain grayscale opacity-50 reveal-opacity-50 transition-all duration-500 absolute reveal-target" alt="" />
+        <div id="logoCell5" class="logo-cell hidden items-center justify-center h-28 sm:h-36 bg-zinc-900/30 border border-zinc-800/50 p-4 sm:p-6 glow-hover">
+          <span class="logo-fallback text-zinc-400 font-serif text-sm sm:text-base text-center leading-snug"></span>
+          <img class="logo-img hidden max-h-14 sm:max-h-20 max-w-[85%] object-contain grayscale opacity-50 reveal-opacity-50 transition-all duration-500 absolute reveal-target" alt="" />
         </div>
-        <div id="logoCell6" class="logo-cell hidden items-center justify-center h-20 sm:h-24 w-[calc(50%-6px)] sm:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] bg-zinc-900/30 border border-zinc-800/50 px-3 sm:px-4 shrink-0">
-          <span class="logo-fallback text-zinc-400 font-serif text-xs sm:text-sm text-center leading-snug"></span>
-          <img class="logo-img hidden max-h-10 sm:max-h-12 max-w-[80%] object-contain grayscale opacity-50 reveal-opacity-50 transition-all duration-500 absolute reveal-target" alt="" />
+        <div id="logoCell6" class="logo-cell hidden items-center justify-center h-28 sm:h-36 bg-zinc-900/30 border border-zinc-800/50 p-4 sm:p-6 glow-hover">
+          <span class="logo-fallback text-zinc-400 font-serif text-sm sm:text-base text-center leading-snug"></span>
+          <img class="logo-img hidden max-h-14 sm:max-h-20 max-w-[85%] object-contain grayscale opacity-50 reveal-opacity-50 transition-all duration-500 absolute reveal-target" alt="" />
         </div>
-        <div id="logoCell7" class="logo-cell hidden items-center justify-center h-20 sm:h-24 w-[calc(50%-6px)] sm:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] bg-zinc-900/30 border border-zinc-800/50 px-3 sm:px-4 shrink-0">
-          <span class="logo-fallback text-zinc-400 font-serif text-xs sm:text-sm text-center leading-snug"></span>
-          <img class="logo-img hidden max-h-10 sm:max-h-12 max-w-[80%] object-contain grayscale opacity-50 reveal-opacity-50 transition-all duration-500 absolute reveal-target" alt="" />
+        <div id="logoCell7" class="logo-cell hidden items-center justify-center h-28 sm:h-36 bg-zinc-900/30 border border-zinc-800/50 p-4 sm:p-6 glow-hover">
+          <span class="logo-fallback text-zinc-400 font-serif text-sm sm:text-base text-center leading-snug"></span>
+          <img class="logo-img hidden max-h-14 sm:max-h-20 max-w-[85%] object-contain grayscale opacity-50 reveal-opacity-50 transition-all duration-500 absolute reveal-target" alt="" />
         </div>
-        <div id="logoCell8" class="logo-cell hidden items-center justify-center h-20 sm:h-24 w-[calc(50%-6px)] sm:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] bg-zinc-900/30 border border-zinc-800/50 px-3 sm:px-4 shrink-0">
-          <span class="logo-fallback text-zinc-400 font-serif text-xs sm:text-sm text-center leading-snug"></span>
-          <img class="logo-img hidden max-h-10 sm:max-h-12 max-w-[80%] object-contain grayscale opacity-50 reveal-opacity-50 transition-all duration-500 absolute reveal-target" alt="" />
+        <div id="logoCell8" class="logo-cell hidden items-center justify-center h-28 sm:h-36 bg-zinc-900/30 border border-zinc-800/50 p-4 sm:p-6 glow-hover">
+          <span class="logo-fallback text-zinc-400 font-serif text-sm sm:text-base text-center leading-snug"></span>
+          <img class="logo-img hidden max-h-14 sm:max-h-20 max-w-[85%] object-contain grayscale opacity-50 reveal-opacity-50 transition-all duration-500 absolute reveal-target" alt="" />
         </div>
-        <div id="logoCell9" class="logo-cell hidden items-center justify-center h-20 sm:h-24 w-[calc(50%-6px)] sm:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] bg-zinc-900/30 border border-zinc-800/50 px-3 sm:px-4 shrink-0">
-          <span class="logo-fallback text-zinc-400 font-serif text-xs sm:text-sm text-center leading-snug"></span>
-          <img class="logo-img hidden max-h-10 sm:max-h-12 max-w-[80%] object-contain grayscale opacity-50 reveal-opacity-50 transition-all duration-500 absolute reveal-target" alt="" />
+        <div id="logoCell9" class="logo-cell hidden items-center justify-center h-28 sm:h-36 bg-zinc-900/30 border border-zinc-800/50 p-4 sm:p-6 glow-hover">
+          <span class="logo-fallback text-zinc-400 font-serif text-sm sm:text-base text-center leading-snug"></span>
+          <img class="logo-img hidden max-h-14 sm:max-h-20 max-w-[85%] object-contain grayscale opacity-50 reveal-opacity-50 transition-all duration-500 absolute reveal-target" alt="" />
         </div>
-        <div id="logoCell10" class="logo-cell hidden items-center justify-center h-20 sm:h-24 w-[calc(50%-6px)] sm:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] bg-zinc-900/30 border border-zinc-800/50 px-3 sm:px-4 shrink-0">
-          <span class="logo-fallback text-zinc-400 font-serif text-xs sm:text-sm text-center leading-snug"></span>
-          <img class="logo-img hidden max-h-10 sm:max-h-12 max-w-[80%] object-contain grayscale opacity-50 reveal-opacity-50 transition-all duration-500 absolute reveal-target" alt="" />
+        <div id="logoCell10" class="logo-cell hidden items-center justify-center h-28 sm:h-36 bg-zinc-900/30 border border-zinc-800/50 p-4 sm:p-6 glow-hover">
+          <span class="logo-fallback text-zinc-400 font-serif text-sm sm:text-base text-center leading-snug"></span>
+          <img class="logo-img hidden max-h-14 sm:max-h-20 max-w-[85%] object-contain grayscale opacity-50 reveal-opacity-50 transition-all duration-500 absolute reveal-target" alt="" />
         </div>
-        <div id="logoCell11" class="logo-cell hidden items-center justify-center h-20 sm:h-24 w-[calc(50%-6px)] sm:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] bg-zinc-900/30 border border-zinc-800/50 px-3 sm:px-4 shrink-0">
-          <span class="logo-fallback text-zinc-400 font-serif text-xs sm:text-sm text-center leading-snug"></span>
-          <img class="logo-img hidden max-h-10 sm:max-h-12 max-w-[80%] object-contain grayscale opacity-50 reveal-opacity-50 transition-all duration-500 absolute reveal-target" alt="" />
+        <div id="logoCell11" class="logo-cell hidden items-center justify-center h-28 sm:h-36 bg-zinc-900/30 border border-zinc-800/50 p-4 sm:p-6 glow-hover">
+          <span class="logo-fallback text-zinc-400 font-serif text-sm sm:text-base text-center leading-snug"></span>
+          <img class="logo-img hidden max-h-14 sm:max-h-20 max-w-[85%] object-contain grayscale opacity-50 reveal-opacity-50 transition-all duration-500 absolute reveal-target" alt="" />
         </div>
-        <div id="logoCell12" class="logo-cell hidden items-center justify-center h-20 sm:h-24 w-[calc(50%-6px)] sm:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] bg-zinc-900/30 border border-zinc-800/50 px-3 sm:px-4 shrink-0">
-          <span class="logo-fallback text-zinc-400 font-serif text-xs sm:text-sm text-center leading-snug"></span>
-          <img class="logo-img hidden max-h-10 sm:max-h-12 max-w-[80%] object-contain grayscale opacity-50 reveal-opacity-50 transition-all duration-500 absolute reveal-target" alt="" />
+        <div id="logoCell12" class="logo-cell hidden items-center justify-center h-28 sm:h-36 bg-zinc-900/30 border border-zinc-800/50 p-4 sm:p-6 glow-hover">
+          <span class="logo-fallback text-zinc-400 font-serif text-sm sm:text-base text-center leading-snug"></span>
+          <img class="logo-img hidden max-h-14 sm:max-h-20 max-w-[85%] object-contain grayscale opacity-50 reveal-opacity-50 transition-all duration-500 absolute reveal-target" alt="" />
         </div>
       </div>
+      <!-- 🌟 Logo 牆結束 🌟 -->
+
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div class="group relative bg-zinc-900/30 border border-zinc-800/50 glow-hover overflow-hidden">
           <div class="h-64 sm:h-72 bg-zinc-800 relative overflow-hidden">

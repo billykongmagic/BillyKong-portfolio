@@ -86,9 +86,7 @@
     .bg-gold { background-color: var(--gold) !important; }
     .text-gold-dark { color: var(--gold-dark) !important; }
 
-    /* 🌟 Blueprint Atmosphere Layer (借鑒 Authkit 氛圍元素，金色調整版) */
-
-    /* 背景藍圖網格 — 極淡，只增加質感不搶視覺 */
+    /* 🌟 Blueprint Atmosphere Layer */
     .blueprint-grid {
       position: absolute;
       inset: 0;
@@ -99,7 +97,6 @@
       pointer-events: none;
     }
 
-    /* Conic glow 邊框 — 取代原本生硬的 border，呼應金色光源從上方灑落 */
     .conic-glow-frame {
       position: relative;
     }
@@ -119,7 +116,6 @@
       pointer-events: none;
     }
 
-    /* 柔和金色光暈 — 取代純色 border-hover，做出 Authkit 的 glow 層次感 */
     .glow-hover {
       transition: box-shadow 0.4s ease, border-color 0.4s ease;
       box-shadow: inset 0 0 0 1px rgba(212, 175, 106, 0.08);
@@ -131,7 +127,6 @@
       border-color: rgba(212, 175, 106, 0.4) !important;
     }
 
-    /* CTA 按鈕金色光暈 */
     .gold-cta-glow {
       box-shadow: 0 0 0 1px rgba(212, 175, 106, 0.5), 0 0 32px 0 rgba(212, 175, 106, 0.25);
       transition: box-shadow 0.4s ease, transform 0.2s ease;
@@ -141,7 +136,6 @@
       transform: translateY(-1px);
     }
 
-    /* 頂部中心放射光 — 用於 Hero 區，極微弱的金色 ambient glow */
     .ambient-glow-top {
       position: absolute;
       top: -10%;
@@ -184,7 +178,7 @@
       box-shadow: 0 0 0 1px rgba(212, 175, 106, 0.6), 0 0 28px rgba(212, 175, 106, 0.3);
     }
 
-    /* 🌟 常駐 WhatsApp 浮動按鈕：固定右下角，疊在 back-to-top 上方，永遠可見 */
+    /* 🌟 常駐 WhatsApp 浮動按鈕 */
     #whatsapp-float {
       position: fixed;
       bottom: 80px;
@@ -210,74 +204,41 @@
       0%, 100% { box-shadow: 0 4px 14px rgba(0,0,0,0.4), 0 0 0 0 rgba(37, 211, 102, 0.5); }
       50% { box-shadow: 0 4px 14px rgba(0,0,0,0.4), 0 0 0 8px rgba(37, 211, 102, 0); }
     }
-    /* 手機版稍微縮小並貼齊邊緣，避免遮住內容 */
     @media (max-width: 640px) {
-      #whatsapp-float {
-        bottom: 72px;
-        right: 16px;
-        width: 48px;
-        height: 48px;
-      }
-      #back-to-top {
-        bottom: 16px;
-        right: 16px;
-      }
+      #whatsapp-float { bottom: 72px; right: 16px; width: 48px; height: 48px; }
+      #back-to-top { bottom: 16px; right: 16px; }
     }
 
-    /* 🌟 Sticky nav 錨點連結 */
-    .nav-link {
-      transition: color 0.3s ease;
-    }
-    .nav-link:hover {
-      color: var(--gold) !important;
-    }
+    .nav-link { transition: color 0.3s ease; }
+    .nav-link:hover { color: var(--gold) !important; }
 
-    /* 🌟 行動版漢堡選單 */
     #mobile-menu {
       transition: max-height 0.35s ease, opacity 0.3s ease;
       max-height: 0;
       opacity: 0;
       overflow: hidden;
     }
-    #mobile-menu.open {
-      max-height: 400px;
-      opacity: 1;
-    }
+    #mobile-menu.open { max-height: 400px; opacity: 1; }
 
-    /* 🌟 影片播放縮圖 hover 提示 */
-    .video-placeholder.has-thumb {
-      cursor: pointer;
-    }
+    .video-placeholder.has-thumb { cursor: pointer; }
     .video-placeholder.has-thumb:hover .play-ring {
       box-shadow: 0 0 0 1px rgba(212, 175, 106, 0.8), 0 0 24px rgba(212, 175, 106, 0.4);
       transform: scale(1.08);
     }
-    .play-ring {
-      transition: box-shadow 0.3s ease, transform 0.3s ease;
-    }
-    /* 🌟 播放鍵三角形：用純CSS繪製，取代icon避免SVG重心偏移問題 */
+    .play-ring { transition: box-shadow 0.3s ease, transform 0.3s ease; }
     .play-triangle {
-      width: 0;
-      height: 0;
-      border-top: 8px solid transparent;
-      border-bottom: 8px solid transparent;
-      border-left: 13px solid var(--gold);
-      margin-left: 4px; /* 視覺光學置中：三角形尖端造成視覺空隙偏右，需向右補正 */
-      flex-shrink: 0;
+      width: 0; height: 0;
+      border-top: 8px solid transparent; border-bottom: 8px solid transparent; border-left: 13px solid var(--gold);
+      margin-left: 4px; flex-shrink: 0;
     }
 
-    /* 🌟 品牌 Logo 牆：fallback 文字與圖片疊放於同一個 cell 內 */
-    .logo-cell {
-      position: relative;
-    }
-    .logo-cell img {
-      position: absolute;
-    }
+    .logo-cell { position: relative; }
+    .logo-cell img { position: absolute; }
   </style>
 
   <script>
     // ==========================================
-    // 🌟 你的專屬照片設定區 (請在這裡貼上你的網址)
+    // 🌟 照片與設定
     // ==========================================
     const MY_PHOTOS = {
       heroBackground: "hero.jpg",
@@ -299,11 +260,6 @@
       brand4: "brand4.jpg",
     };
 
-    // ==========================================
-    // 🌟 品牌合作 Logo 牆設定區
-    // 建議使用透明背景 PNG 或 SVG，效果最佳
-    // 留空 url: "" 則顯示 name 文字；name 和 url 都留空則整格隱藏
-    // ==========================================
     const MY_LOGOS = [
       { name: "Hermès",                url: "logo/hermes.png" },
       { name: "澳門國際機場",            url: "logo/airport.png" },
@@ -319,12 +275,6 @@
       { name: "geg",                       url: "logo/geg.png" },
     ];
 
-    // ==========================================
-    // 🌟 你的專屬影片設定區 (請貼上 YouTube 影片 ID)
-    // 影片ID是網址 watch?v= 後面那一段，例如：
-    // https://www.youtube.com/watch?v=dQw4w9WgXcQ → dQw4w9WgXcQ
-    // 留空 "" 則該影片卡會自動隱藏
-    // ==========================================
     const MY_VIDEOS = {
       video1: "SDjyESXXXKg",
       video2: "THykEwJR1lE",
@@ -338,7 +288,6 @@
         if (img) {
           if (url && url.trim() !== "") {
             img.src = url;
-            // 🌟 效能優化：非首屏圖片延遲載入，hero 主圖優先載入
             if (id === 'heroBackground') {
               img.loading = 'eager';
               img.setAttribute('fetchpriority', 'high');
@@ -347,8 +296,7 @@
               img.decoding = 'async';
             }
             img.classList.remove('hidden');
-            img.parentElement.style.display = 'block'; // 修復網格黑塊
-            // logo 圖載入成功後，隱藏文字版的 fallback
+            img.parentElement.style.display = 'block';
             if (id === 'logo') {
               const fallback = document.getElementById('logoFallback');
               if (fallback) fallback.classList.add('hidden');
@@ -356,7 +304,6 @@
             }
           } else {
             img.classList.add('hidden');
-            // 如果是右側網格照片沒有網址，直接隱藏外層，讓剩下的照片自動變大
             if (id.startsWith('heroGrid')) {
               img.parentElement.style.display = 'none';
             }
@@ -364,13 +311,12 @@
         }
       });
 
-      // 🌟 品牌合作 Logo 牆：依 MY_LOGOS 設定動態填入，name+url 都空白則整格隱藏
       MY_LOGOS.forEach((item, i) => {
         const cell = document.getElementById('logoCell' + (i + 1));
         if (!cell) return;
         const hasName = item.name && item.name.trim() !== "";
         const hasUrl  = item.url  && item.url.trim()  !== "";
-        if (!hasName && !hasUrl) return; // 兩者都空 → 整格不顯示
+        if (!hasName && !hasUrl) return; 
         cell.classList.remove('hidden');
         cell.classList.add('flex');
         const fallback = cell.querySelector('.logo-fallback');
@@ -385,8 +331,6 @@
         }
       });
 
-      // 🌟 影片改為「點擊才載入 iframe」(facade 模式)：
-      // 加快首屏速度，避免同時建立 3 個 YouTube player 連線
       Object.entries(MY_VIDEOS).forEach(([id, videoId]) => {
         const card = document.getElementById(id);
         if (!card) return;
@@ -395,7 +339,6 @@
         if (videoId && videoId.trim() !== "") {
           if (placeholder) {
             placeholder.classList.add('has-thumb');
-            // 用 YouTube 縮圖當背景，取代純黑底
             placeholder.style.backgroundImage = `linear-gradient(rgba(9,9,11,0.55), rgba(9,9,11,0.75)), url('https://i.ytimg.com/vi/${videoId}/hqdefault.jpg')`;
             placeholder.style.backgroundSize = 'cover';
             placeholder.style.backgroundPosition = 'center';
@@ -446,7 +389,6 @@
           if (icon) icon.setAttribute('data-lucide', isOpen ? 'x' : 'menu');
           lucide.createIcons();
         });
-        // 點擊選單內連結後自動收合
         mobileMenu.querySelectorAll('a').forEach(link => {
           link.addEventListener('click', () => {
             mobileMenu.classList.remove('open');
@@ -457,21 +399,15 @@
         });
       }
 
-      // ==========================================
       // 🌟 滾動時自動由灰階變回彩色的 IntersectionObserver
-      // ==========================================
       const scrollObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            // 當元素進入視窗範圍時，移除灰階與原本的半透明效果，恢復全彩
             entry.target.classList.remove('grayscale', 'opacity-50', 'opacity-60', 'opacity-70', 'opacity-80');
             entry.target.classList.add('grayscale-0', 'opacity-100');
           } else {
-            // 當元素離開視窗範圍時，重新加上灰階，並還原初始透明度（創造往下滑不斷揭開彩色的效果）
             entry.target.classList.add('grayscale');
             entry.target.classList.remove('grayscale-0', 'opacity-100');
-            
-            // 透過 dataset 或特定 class 判斷要還原哪種程度的透明度
             if (entry.target.classList.contains('reveal-opacity-50')) entry.target.classList.add('opacity-50');
             if (entry.target.classList.contains('reveal-opacity-60')) entry.target.classList.add('opacity-60');
             if (entry.target.classList.contains('reveal-opacity-70')) entry.target.classList.add('opacity-70');
@@ -479,15 +415,13 @@
           }
         });
       }, {
-        threshold: 0.15, // 元素只要有 15% 進入視窗內就觸發彩色效果
-        rootMargin: "0px 0px -5% 0px" // 在距離螢幕底部 5% 前觸發
+        threshold: 0.15,
+        rootMargin: "0px 0px -5% 0px"
       });
 
-      // 將所有帶有 'reveal-target' 類別的圖片加入觀察名單
       document.querySelectorAll('.reveal-target').forEach(img => {
         scrollObserver.observe(img);
       });
-      // ==========================================
     });
   </script>
 </head>
@@ -496,8 +430,6 @@
   <nav class="fixed top-0 left-0 right-0 z-50 bg-zinc-950/80 backdrop-blur-md text-white border-b border-zinc-900/80">
     <div class="flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4">
       <div class="text-xs sm:text-sm tracking-widest font-bold uppercase">Billy Kong</div>
-
-      <!-- 桌面版錨點導覽 -->
       <div class="hidden lg:flex items-center gap-8 text-[11px] tracking-widest uppercase text-zinc-400 font-serif">
         <a href="#about" class="nav-link">Profile</a>
         <a href="#tours" class="nav-link">Tours</a>
@@ -506,14 +438,10 @@
         <a href="https://wa.me/85366551654" target="_blank" rel="noreferrer" class="nav-link text-gold">Contact</a>
         <a href="index-en.html" class="nav-link border border-zinc-700 px-3 py-1 hover:border-gold">EN</a>
       </div>
-
-      <!-- 行動版漢堡按鈕 -->
       <button id="mobile-menu-btn" class="lg:hidden flex items-center justify-center w-9 h-9" aria-label="Menu">
         <i data-lucide="menu" class="w-5 h-5"></i>
       </button>
     </div>
-
-    <!-- 行動版下拉選單 -->
     <div id="mobile-menu" class="lg:hidden px-4 sm:px-6 border-t border-zinc-900/80">
       <div class="flex flex-col gap-4 py-5 text-xs tracking-widest uppercase text-zinc-300 font-serif">
         <a href="#about" class="nav-link">Profile 簡介</a>
@@ -526,12 +454,10 @@
     </div>
   </nav>
 
-  <!-- 常駐 WhatsApp 浮動聯絡按鈕 -->
   <a id="whatsapp-float" href="https://wa.me/85366551654" target="_blank" rel="noreferrer" aria-label="WhatsApp 聯絡 Billy Kong">
     <svg viewBox="0 0 24 24" width="26" height="26" fill="#ffffff"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2zm0 18.13h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.18 8.18 0 0 1-1.26-4.36c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.41a8.18 8.18 0 0 1 2.41 5.83c0 4.55-3.7 8.22-8.25 8.22zm4.52-6.16c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.04-.38-1.99-1.22-.74-.65-1.23-1.46-1.38-1.71-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.42-.14-.01-.31-.01-.48-.01-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1s.9 2.44 1.02 2.61c.13.17 1.77 2.7 4.29 3.78.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.23-.16-.48-.28z"/></svg>
   </a>
 
-  <!-- Back to top -->
   <button id="back-to-top" aria-label="Back to top">
     <i data-lucide="arrow-up" class="w-4 h-4 text-gold"></i>
   </button>
@@ -541,7 +467,8 @@
     <div class="ambient-glow-top"></div>
     <div class="flex flex-col lg:h-screen border-b lg:border-b-0 lg:border-r border-zinc-900 bg-zinc-950">
       <div class="h-[55vh] lg:flex-1 w-full relative bg-zinc-900">
-        <img id="heroBackground" alt="Billy Kong 江尚峰 澳門國際幻術師 舞台肖像" class="hidden object-cover object-top w-full h-full" />
+        <!-- 加入 absolute inset-0 確保背景圖片不會影響外層高度 -->
+        <img id="heroBackground" alt="Billy Kong 江尚峰 澳門國際幻術師 舞台肖像" class="hidden absolute inset-0 w-full h-full object-cover object-top" />
       </div>
       <div class="w-full p-6 sm:p-8 lg:p-12 xl:p-16 relative z-10 shrink-0">
         <h1 class="text-4xl sm:text-5xl lg:text-7xl font-serif text-white mb-2 leading-tight">Billy Kong</h1>
@@ -562,23 +489,24 @@
       </div>
     </div>
 
-    <!-- 首頁三張預覽圖與 Logo -->
-    <div class="min-h-[35vh] sm:min-h-[40vh] lg:h-[calc(100vh)] bg-zinc-900 flex flex-wrap gap-1 lg:gap-2 p-1 lg:p-2 lg:pt-[60px]">
-      <div class="relative overflow-hidden group bg-zinc-800 flex-1 min-w-[40%] min-h-[45%]">
-        <img id="heroGrid1" alt="Billy Kong 江尚峰 國際舞台魔術演出花絮 1" class="hidden reveal-target reveal-opacity-60 object-cover w-full h-full opacity-60 grayscale transition-all duration-700" />
+    <!-- 首頁三張預覽圖與 Logo (修復 iOS 跑位問題：強制比例 + 絕對定位) -->
+    <div class="h-auto lg:h-[calc(100vh)] bg-zinc-900 flex flex-wrap gap-1 lg:gap-2 p-1 lg:p-2 lg:pt-[60px]">
+      <div class="relative overflow-hidden group bg-zinc-800 flex-1 basis-[48%] aspect-square lg:aspect-auto lg:h-[48%]">
+        <img id="heroGrid1" alt="Billy Kong 江尚峰 國際舞台魔術演出花絮 1" class="hidden absolute inset-0 w-full h-full object-cover reveal-target reveal-opacity-60 opacity-60 grayscale transition-all duration-700" />
       </div>
-      <div class="relative overflow-hidden group bg-zinc-800 flex-1 min-w-[40%] min-h-[45%]">
-        <img id="heroGrid2" alt="Billy Kong 江尚峰 國際舞台魔術演出花絮 2" class="hidden reveal-target reveal-opacity-60 object-cover w-full h-full opacity-60 grayscale transition-all duration-700" />
+      <div class="relative overflow-hidden group bg-zinc-800 flex-1 basis-[48%] aspect-square lg:aspect-auto lg:h-[48%]">
+        <img id="heroGrid2" alt="Billy Kong 江尚峰 國際舞台魔術演出花絮 2" class="hidden absolute inset-0 w-full h-full object-cover reveal-target reveal-opacity-60 opacity-60 grayscale transition-all duration-700" />
       </div>
-      <div class="relative overflow-hidden group bg-zinc-800 flex-1 min-w-[40%] min-h-[45%]">
-        <img id="heroGrid3" alt="Billy Kong 江尚峰 國際舞台魔術演出花絮 3" class="hidden reveal-target reveal-opacity-60 object-cover w-full h-full opacity-60 grayscale transition-all duration-700" />
+      <div class="relative overflow-hidden group bg-zinc-800 flex-1 basis-[48%] aspect-square lg:aspect-auto lg:h-[48%]">
+        <img id="heroGrid3" alt="Billy Kong 江尚峰 國際舞台魔術演出花絮 3" class="hidden absolute inset-0 w-full h-full object-cover reveal-target reveal-opacity-60 opacity-60 grayscale transition-all duration-700" />
       </div>
-      <div class="relative overflow-hidden group bg-zinc-950 flex items-center justify-center flex-1 min-w-[40%] min-h-[45%]">
-        <div id="logoFallback" class="text-center p-6">
-          <i data-lucide="sparkles" class="w-8 h-8 mx-auto mb-3 text-zinc-600 group-hover:text-white transition-colors duration-500"></i>
-          <p class="text-xs tracking-widest uppercase text-zinc-500 group-hover:text-zinc-300 transition-colors duration-500 font-serif">Premium<br/>Experience</p>
+      <div class="relative overflow-hidden group bg-zinc-950 flex flex-col items-center justify-center flex-1 basis-[48%] aspect-square lg:aspect-auto lg:h-[48%]">
+        <div id="logoFallback" class="text-center p-4 sm:p-6 relative z-10">
+          <i data-lucide="sparkles" class="w-8 h-8 mx-auto mb-2 sm:mb-3 text-zinc-600 group-hover:text-white transition-colors duration-500"></i>
+          <p class="text-[10px] sm:text-xs tracking-widest uppercase text-zinc-500 group-hover:text-zinc-300 transition-colors duration-500 font-serif">Premium<br/>Experience</p>
         </div>
-        <img id="logo" alt="Billy Kong Magic Logo" class="hidden w-2/5 max-w-[160px] object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
+        <!-- Logo 使用相對定位避免擠壓變形 -->
+        <img id="logo" alt="Billy Kong Magic Logo" class="hidden relative z-20 w-1/2 max-w-[140px] object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
       </div>
     </div>
   </section>
@@ -680,8 +608,8 @@
           <div class="space-y-8">
             
             <div class="group flex flex-col sm:flex-row gap-6 bg-zinc-900/30 border border-zinc-800/50 p-4 lg:p-6 hover:bg-zinc-900 transition-all">
-              <div class="w-full sm:w-48 h-56 sm:h-48 bg-zinc-800 flex-shrink-0 overflow-hidden">
-                <img id="tour1" alt="Billy Kong IMAGINE NATION 幻 香港深圳巡演幻術表演" class="hidden reveal-target reveal-opacity-70 w-full h-full object-cover grayscale opacity-70 group-hover:scale-110 transition-all duration-500" />
+              <div class="w-full sm:w-48 h-56 sm:h-48 bg-zinc-800 flex-shrink-0 relative overflow-hidden">
+                <img id="tour1" alt="Billy Kong IMAGINE NATION 幻 香港深圳巡演幻術表演" class="hidden absolute inset-0 reveal-target reveal-opacity-70 w-full h-full object-cover grayscale opacity-70 group-hover:scale-110 transition-all duration-500" />
               </div>
               <div class="flex-1 flex flex-col justify-center">
                 <h4 class="text-xl text-white mb-2 font-serif">IMAGINE NATION 幻</h4>
@@ -691,8 +619,8 @@
             </div>
 
             <div class="group flex flex-col sm:flex-row gap-6 bg-zinc-900/30 border border-zinc-800/50 p-4 lg:p-6 hover:bg-zinc-900 transition-all">
-              <div class="w-full sm:w-48 h-56 sm:h-48 bg-zinc-800 flex-shrink-0 overflow-hidden">
-                <img id="tour2" alt="Billy Kong 秀都魔幻 海南三亞大型駐場魔術秀" class="hidden reveal-target reveal-opacity-70 w-full h-full object-cover grayscale opacity-70 group-hover:scale-110 transition-all duration-500" />
+              <div class="w-full sm:w-48 h-56 sm:h-48 bg-zinc-800 flex-shrink-0 relative overflow-hidden">
+                <img id="tour2" alt="Billy Kong 秀都魔幻 海南三亞大型駐場魔術秀" class="hidden absolute inset-0 reveal-target reveal-opacity-70 w-full h-full object-cover grayscale opacity-70 group-hover:scale-110 transition-all duration-500" />
               </div>
               <div class="flex-1 flex flex-col justify-center">
                 <h4 class="text-xl text-white mb-2 font-serif">秀都魔幻</h4>
@@ -702,8 +630,8 @@
             </div>
 
             <div class="group flex flex-col sm:flex-row gap-6 bg-zinc-900/30 border border-zinc-800/50 p-4 lg:p-6 hover:bg-zinc-900 transition-all">
-              <div class="w-full sm:w-48 h-56 sm:h-48 bg-zinc-800 flex-shrink-0 overflow-hidden">
-                <img id="tour3" alt="Billy Kong 廣州長隆歡樂世界 魔法奇幻之旅 主秀幻術師" class="hidden reveal-target reveal-opacity-70 w-full h-full object-cover grayscale opacity-70 group-hover:scale-110 transition-all duration-500" />
+              <div class="w-full sm:w-48 h-56 sm:h-48 bg-zinc-800 flex-shrink-0 relative overflow-hidden">
+                <img id="tour3" alt="Billy Kong 廣州長隆歡樂世界 魔法奇幻之旅 主秀幻術師" class="hidden absolute inset-0 reveal-target reveal-opacity-70 w-full h-full object-cover grayscale opacity-70 group-hover:scale-110 transition-all duration-500" />
               </div>
               <div class="flex-1 flex flex-col justify-center">
                 <h4 class="text-xl text-white mb-2 font-serif">廣州長隆歡樂世界 《魔法奇幻之旅》</h4>
@@ -713,8 +641,8 @@
             </div>
 
             <div class="group flex flex-col sm:flex-row gap-6 bg-zinc-900/30 border border-zinc-800/50 p-4 lg:p-6 hover:bg-zinc-900 transition-all">
-              <div class="w-full sm:w-48 h-56 sm:h-48 bg-zinc-800 flex-shrink-0 overflow-hidden">
-                <img id="tour4" alt="Billy Kong 香港藝術節大館 藝術外賣 魔術表演" class="hidden reveal-target reveal-opacity-70 w-full h-full object-cover grayscale opacity-70 group-hover:scale-110 transition-all duration-500" />
+              <div class="w-full sm:w-48 h-56 sm:h-48 bg-zinc-800 flex-shrink-0 relative overflow-hidden">
+                <img id="tour4" alt="Billy Kong 香港藝術節大館 藝術外賣 魔術表演" class="hidden absolute inset-0 reveal-target reveal-opacity-70 w-full h-full object-cover grayscale opacity-70 group-hover:scale-110 transition-all duration-500" />
               </div>
               <div class="flex-1 flex flex-col justify-center">
                 <h4 class="text-xl text-white mb-2 font-serif">Hong Kong Arts Festival @ Tai Kwun</h4>
@@ -880,8 +808,8 @@
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div class="group relative bg-zinc-900/30 border border-zinc-800/50 glow-hover overflow-hidden">
-          <div class="h-64 sm:h-72 bg-zinc-800 overflow-hidden">
-            <img id="brand1" alt="Billy Kong Hermès VIP 客戶體驗魔術表演" class="hidden reveal-target reveal-opacity-70 w-full h-full object-cover grayscale opacity-70 group-hover:scale-105 transition-all duration-700" />
+          <div class="h-64 sm:h-72 bg-zinc-800 relative overflow-hidden">
+            <img id="brand1" alt="Billy Kong Hermès VIP 客戶體驗魔術表演" class="hidden absolute inset-0 reveal-target reveal-opacity-70 w-full h-full object-cover grayscale opacity-70 group-hover:scale-105 transition-all duration-700" />
           </div>
           <div class="p-6 relative z-10 bg-gradient-to-t from-zinc-900 via-zinc-900/95 to-transparent -mt-16 pt-12">
             <span class="text-xl font-serif text-white block">Hermès</span>
@@ -889,8 +817,8 @@
           </div>
         </div>
         <div class="group relative bg-zinc-900/30 border border-zinc-800/50 glow-hover overflow-hidden">
-          <div class="h-64 sm:h-72 bg-zinc-800 overflow-hidden">
-            <img id="brand2" alt="Billy Kong 澳門國際機場 國際航線推廣魔術表演" class="hidden reveal-target reveal-opacity-70 w-full h-full object-cover grayscale opacity-70 group-hover:scale-105 transition-all duration-700" />
+          <div class="h-64 sm:h-72 bg-zinc-800 relative overflow-hidden">
+            <img id="brand2" alt="Billy Kong 澳門國際機場 國際航線推廣魔術表演" class="hidden absolute inset-0 reveal-target reveal-opacity-70 w-full h-full object-cover grayscale opacity-70 group-hover:scale-105 transition-all duration-700" />
           </div>
           <div class="p-6 relative z-10 bg-gradient-to-t from-zinc-900 via-zinc-900/95 to-transparent -mt-16 pt-12">
             <span class="text-xl font-serif text-white block">Macau International Airport</span>
@@ -898,8 +826,8 @@
           </div>
         </div>
         <div class="group relative bg-zinc-900/30 border border-zinc-800/50 glow-hover overflow-hidden">
-          <div class="h-64 sm:h-72 bg-zinc-800 overflow-hidden">
-            <img id="brand3" alt="Billy Kong 澳門國際環保合作發展論壇 2026 環保主題魔術表演" class="hidden reveal-target reveal-opacity-70 w-full h-full object-cover grayscale opacity-70 group-hover:scale-105 transition-all duration-700" />
+          <div class="h-64 sm:h-72 bg-zinc-800 relative overflow-hidden">
+            <img id="brand3" alt="Billy Kong 澳門國際環保合作發展論壇 2026 環保主題魔術表演" class="hidden absolute inset-0 reveal-target reveal-opacity-70 w-full h-full object-cover grayscale opacity-70 group-hover:scale-105 transition-all duration-700" />
           </div>
           <div class="p-6 relative z-10 bg-gradient-to-t from-zinc-900 via-zinc-900/95 to-transparent -mt-16 pt-12">
             <span class="text-xl font-serif text-white block">澳門國際環保合作發展論壇 2026</span>
@@ -907,8 +835,8 @@
           </div>
         </div>
         <div class="group relative bg-zinc-900/30 border border-zinc-800/50 glow-hover overflow-hidden">
-          <div class="h-64 sm:h-72 bg-zinc-800 overflow-hidden">
-            <img id="brand4" alt="Billy Kong 澳門田耕閣手信 幸運神朱古力新品發布魔術表演" class="hidden reveal-target reveal-opacity-70 w-full h-full object-cover grayscale opacity-70 group-hover:scale-105 transition-all duration-700" />
+          <div class="h-64 sm:h-72 bg-zinc-800 relative overflow-hidden">
+            <img id="brand4" alt="Billy Kong 澳門田耕閣手信 幸運神朱古力新品發布魔術表演" class="hidden absolute inset-0 reveal-target reveal-opacity-70 w-full h-full object-cover grayscale opacity-70 group-hover:scale-105 transition-all duration-700" />
           </div>
           <div class="p-6 relative z-10 bg-gradient-to-t from-zinc-900 via-zinc-900/95 to-transparent -mt-16 pt-12">
             <span class="text-xl font-serif text-white block">澳門田耕閣手信</span>
@@ -1008,8 +936,8 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         
         <div class="group relative bg-zinc-900 overflow-hidden border border-zinc-800 glow-hover">
-          <div class="h-48 lg:h-64 bg-zinc-800 overflow-hidden">
-            <img id="service1" alt="Billy Kong 近距離 VIP 魔術表演 私人晚宴" class="hidden reveal-target reveal-opacity-60 w-full h-full object-cover grayscale opacity-60 group-hover:scale-105 transition-all duration-700" />
+          <div class="h-48 lg:h-64 bg-zinc-800 relative overflow-hidden">
+            <img id="service1" alt="Billy Kong 近距離 VIP 魔術表演 私人晚宴" class="hidden absolute inset-0 reveal-target reveal-opacity-60 w-full h-full object-cover grayscale opacity-60 group-hover:scale-105 transition-all duration-700" />
           </div>
           <div class="p-8 relative z-10 bg-gradient-to-t from-zinc-950 via-zinc-900/95 to-transparent -mt-20 pt-24">
             <h4 class="text-2xl font-serif text-white mb-2">Close-up & VIP Magic<br/><span class="text-lg text-zinc-400">近距離及 VIP 魔術</span></h4>
@@ -1021,8 +949,8 @@
         </div>
         
         <div class="group relative bg-zinc-900 overflow-hidden border border-zinc-800 glow-hover">
-          <div class="h-48 lg:h-64 bg-zinc-800 overflow-hidden">
-            <img id="service2" alt="Billy Kong 舞台幻術演出 企業活動表演" class="hidden reveal-target reveal-opacity-60 w-full h-full object-cover grayscale opacity-60 group-hover:scale-105 transition-all duration-700" />
+          <div class="h-48 lg:h-64 bg-zinc-800 relative overflow-hidden">
+            <img id="service2" alt="Billy Kong 舞台幻術演出 企業活動表演" class="hidden absolute inset-0 reveal-target reveal-opacity-60 w-full h-full object-cover grayscale opacity-60 group-hover:scale-105 transition-all duration-700" />
           </div>
           <div class="p-8 relative z-10 bg-gradient-to-t from-zinc-950 via-zinc-900/95 to-transparent -mt-20 pt-24">
             <h4 class="text-2xl font-serif text-white mb-2">Stage Illusion Show<br/><span class="text-lg text-zinc-400">互動舞台魔術演出</span></h4>
@@ -1034,8 +962,8 @@
         </div>
 
         <div class="group relative bg-zinc-900 overflow-hidden border border-zinc-800 glow-hover">
-          <div class="h-48 lg:h-64 bg-zinc-800 overflow-hidden">
-            <img id="service3" alt="Billy Kong 品牌訂製魔術體驗 產品發布表演" class="hidden reveal-target reveal-opacity-60 w-full h-full object-cover grayscale opacity-60 group-hover:scale-105 transition-all duration-700" />
+          <div class="h-48 lg:h-64 bg-zinc-800 relative overflow-hidden">
+            <img id="service3" alt="Billy Kong 品牌訂製魔術體驗 產品發布表演" class="hidden absolute inset-0 reveal-target reveal-opacity-60 w-full h-full object-cover grayscale opacity-60 group-hover:scale-105 transition-all duration-700" />
           </div>
           <div class="p-8 relative z-10 bg-gradient-to-t from-zinc-950 via-zinc-900/95 to-transparent -mt-20 pt-24">
             <h4 class="text-2xl font-serif text-white mb-2">Brand Experience Design<br/><span class="text-lg text-zinc-400">品牌訂製魔術體驗</span></h4>
@@ -1047,8 +975,8 @@
         </div>
 
         <div class="group relative bg-zinc-900 overflow-hidden border border-zinc-800 glow-hover">
-          <div class="h-48 lg:h-64 bg-zinc-800 overflow-hidden">
-            <img id="service4" alt="Billy Kong 全程製作顧問 幻術技術統籌" class="hidden reveal-target reveal-opacity-60 w-full h-full object-cover grayscale opacity-60 group-hover:scale-105 transition-all duration-700" />
+          <div class="h-48 lg:h-64 bg-zinc-800 relative overflow-hidden">
+            <img id="service4" alt="Billy Kong 全程製作顧問 幻術技術統籌" class="hidden absolute inset-0 reveal-target reveal-opacity-60 w-full h-full object-cover grayscale opacity-60 group-hover:scale-105 transition-all duration-700" />
           </div>
           <div class="p-8 relative z-10 bg-gradient-to-t from-zinc-950 via-zinc-900/95 to-transparent -mt-20 pt-24">
             <h4 class="text-2xl font-serif text-white mb-2">Creative Consultation<br/><span class="text-lg text-zinc-400">全程製作顧問</span></h4>
